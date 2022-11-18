@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
@@ -49,13 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
-		.antMatchers("/admin/**").hasRole("ADMIN")
-		.antMatchers("/user/**").hasRole("USER")
-		.antMatchers("doctor/**").access("hasRole('ROLE_DOCTOR')")
-		.antMatchers("nurse/**").access("hasRole('ROLE_NURSE')")
-		.antMatchers("/**").permitAll().and()
-				.formLogin().loginPage("/signin").loginProcessingUrl("/login")
-				.successHandler(customSuccessHandler).and().csrf()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/user/**").hasRole("USER")
+				.antMatchers("/doctor/**").hasRole("DOCTOR")
+				.antMatchers("/nurse/**").hasRole("NURSE")
+				.antMatchers("/**").permitAll().and()
+				.formLogin().loginPage("/signin")
+				.loginProcessingUrl("/login")
+				.successHandler(customSuccessHandler)
+				.and().csrf()
 				.disable();
 
 	}

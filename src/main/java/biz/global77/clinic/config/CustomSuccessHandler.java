@@ -30,7 +30,5 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 		} else {
 			response.sendRedirect("/user/");
 		}
-
 	}
-
 }
