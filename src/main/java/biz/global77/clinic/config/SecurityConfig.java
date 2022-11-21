@@ -52,12 +52,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/**").hasRole("USER")
 				.antMatchers("/doctor/**").hasRole("DOCTOR")
 				.antMatchers("/nurse/**").hasRole("NURSE")
+				
 				.antMatchers("/**").permitAll().and()
+
 				.formLogin().loginPage("/signin")
 				.loginProcessingUrl("/login")
 				.successHandler(customSuccessHandler)
 				.and().csrf()
-				.disable();
+
+				.disable().exceptionHandling().accessDeniedPage("/accessDenied");
 
 	}
 

@@ -30,4 +30,6 @@ public class DoctorController {
     public String home() {
         return "doctor/home";
     }
+
+	
 }
