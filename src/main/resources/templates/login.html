@@ -2,14 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns: th="http://www.thymeleaf.org" 
 lang="en" class="h-full bg-gray-50">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/main.css}" />
-
-</head>
+<head th:replace="navbar :: html-heading">
 <body class="h-full bg-gray-200">
 
 	<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -20,6 +13,7 @@ lang="en" class="h-full bg-gray-50">
 			<p class="mt-2 text-center text-sm text-gray-600">
 			</p>
 		  </div>
+		  <p th:if="${loginError}" class="error">Wrong user or password</p>
 		  <form class="mt-8 space-y-6" action="login" method="POST">
 			<input type="hidden" name="remember" value="true">
 			<div class="-space-y-px rounded-md shadow-sm">
@@ -46,7 +40,10 @@ lang="en" class="h-full bg-gray-50">
 			</div>
 	  
 			<div>
-			  <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+			  <button type="submit" 
+			  class="group relative flex w-full justify-center rounded-md border border-transparent 
+			  bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" >
+
 				<span class="absolute inset-y-0 left-0 flex items-center pl-3">
 				  <!-- Heroicon name: mini/lock-closed -->
 				  <svg class="h-5 w-5 text-emerald-500 group-hover:text-emerald-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -58,7 +55,10 @@ lang="en" class="h-full bg-gray-50">
 			</div>
 			<div class="flex items-center justify-between">
 				<div class="text-sm">
-					Don't have an account? <a href="register" class="font-medium text-emerald-600 hover:text-emerald-500"> Register</a>
+					Don't have an account? <a 
+					href="register" 
+					class="font-medium text-emerald-600 hover:text-emerald-500"
+					> Register</a>
 				  </div>
 				
 			  </div>

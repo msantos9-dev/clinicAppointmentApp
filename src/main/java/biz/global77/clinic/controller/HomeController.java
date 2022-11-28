@@ -1,12 +1,18 @@
 package biz.global77.clinic.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.twilio.rest.monitor.v1.Alert;
 
 import biz.global77.clinic.model.User;
 import biz.global77.clinic.service.UserService;
@@ -17,10 +23,10 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/")
+	@GetMapping({ "/" })
 	public String index() {
-		
-		return "index";
+
+		return "login";
 	}
 
 	@GetMapping("/signin")
@@ -28,31 +34,36 @@ public class HomeController {
 		return "login";
 	}
 
+	@GetMapping("accessDenied")
+	public String accessDenied() {
+		return "accessDenied";
+	}
+
+	// @GetMapping("/register")
+	// public String register() {
+	// return "register";
+	// }
+
 	@GetMapping("/register")
-	public String register() {
+	public String showForm(User user) {
+
 		return "register";
 	}
 
 	@PostMapping("/createUser")
-	public String createuser(@ModelAttribute User user, HttpSession session) {
+	public String createuser(@Valid User user,
+			Errors errors, Model model) {
 
 		boolean f = userService.checkEmail(user.getEmail());
 
-		if (f) {
-			session.setAttribute("msg", "Email Id already exists");
+		if (null != errors && errors.getErrorCount() > 0) {
 
-			return "redirect:/register";
+			return "register";
 		} else {
-			User userDtls = userService.createUser(user);
-			if (userDtls != null) {
-				session.setAttribute("msg", "Register Successfully");
 
-			} else {
-				session.setAttribute("msg", "Something wrong on server");
-			}
+			return "redirect:/";
 		}
 
-		return "redirect:/";
 	}
 
 }

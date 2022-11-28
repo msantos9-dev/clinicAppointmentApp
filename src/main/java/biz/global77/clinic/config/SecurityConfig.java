@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService getUserDetailsService() {
 		return new UserServiceConfig();
 	}
-
+ 
 	@Bean
 	public BCryptPasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/**").hasRole("USER")
 				.antMatchers("/doctor/**").hasRole("DOCTOR")
 				.antMatchers("/nurse/**").hasRole("NURSE")
-				
+
 				.antMatchers("/**").permitAll().and()
 
 				.formLogin().loginPage("/signin")

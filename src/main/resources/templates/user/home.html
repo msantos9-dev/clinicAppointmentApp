@@ -1,34 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns: th="http://www.thymeleaf.org" 
-th:replace="base::layout(~{::section})"
 lang="en">
-<head>
-	<meta charset="UTF-8">
-<title>Insert title here</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/main.css}" />
-</head>
+<head th:replace="navbar:: html-heading">
 <body>
-	<section> 
-
-		<header class="mt-2 bg-white shadow mr-2 ml-2 rounded-md">
-			<div class="mx-auto max-w-7xl py-2 px-2 sm:px-6 lg:px-8">
-				<h3 class="text-lg font-bold tracking-tight text-gray-900">Patient Dashboard</h3>
-			  </div>
-		  </header>
-		  <main>
-			<div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-			  <!-- Replace with your content -->
-			  <div class="px-4 py-6 sm:px-0">
-				<div class="h-96 rounded-lg border-4 border-dashed border-gray-200"></div>
-			  </div>
-			  <!-- /End replace -->
-			</div>
-		  </main>
-	  
-	</section>
-	
-	
+		<div th:replace="navbar :: navigation-bar"></div>
+		<div th:replace="mainHomePage :: mainHome"></div>
+		<div th:replace="footer :: footer"></div>
 </body>
 </html>

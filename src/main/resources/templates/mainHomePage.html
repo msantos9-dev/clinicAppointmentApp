@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns: th="http://www.thymeleaf.org" 
+lang="en">
+<head th:replace="navbar:: html-heading">
+<body>
+	
+    <main class="mx-auto max-w-7xl min-h-screen" th:fragment="mainHome">
+
+		<!-- Replace with your content -->
+		<section class="w-full h-screen bg-[url('/images/bg.png')] relative">
+			<div class="absolute inset-0 w-full h-full z-20 bg-gradient-to-br from-emerald-600/50 to-emerald-100/40
+					grid place-items-center">
+				<section class="w-[80%] h-[80%] items-center grid lg:grid-cols-2">
+					<div>
+						<span class="text-white font-semibold text-xl tracking-wide leading-4">
+							Need a medical consultation?
+						</span> <br>
+						<span class="text-white text-lg">
+							Book an appointment
+						</span>
+					</div>
+
+					<div class="grid lg:grid-cols-2 gap-5">
+						<div class="w-full max-w-sm h-max bg-white rounded-lg shadow-md">
+							<!-- dark:bg-gray-800 dark:border-gray-700 -->
+							<div
+								class="h-40 lg:h-80 w-full px-5 flex justify-center items-center hover:bg-emerald-400/10 cursor-pointer">
+								<span
+									class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+									Search for a Doctor
+								</span>
+							</div>
+						</div>
+
+						<div class="w-full max-w-sm h-max bg-white rounded-lg shadow-md">
+							<!-- dark:bg-gray-800 dark:border-gray-700 -->
+							<div
+								class="h-40 lg:h-80 w-full px-5 flex justify-center items-center hover:bg-emerald-400/10 cursor-pointer">
+								<span
+									class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+									Book an Appointment
+								</span>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+
+
+		<section class="w-full space-y-20 px-4 lg:px-0 py-20">
+			<div class="text-center space-y-4">
+				<span class="font-bold text-2xl tracking-wider leading-5 text-emerald-500">Popular Searches</span>
+
+				<p class="text-gray-600 text-lg">
+					Don't know where to start? Try to decide first what kind of doctor you need for your appointment
+					or consultation. <br>
+
+					Here are some popular searches you might want to check.
+				</p>
+			</div>
+
+			<div class="grid lg:grid-cols-4 gap-8 w-[80%] mx-auto lg:gap-0">
+				<div class="w-full h-auto grid place-items-center gap-2">
+					<img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Medical Doctor">
+					<span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Medical Doctor
+					</span>
+				</div>
+
+				<div class="w-full h-auto grid place-items-center gap-2">
+					<img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Dentist">
+					<span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Dentist
+					</span>
+				</div>
+
+				<div class="w-full h-auto grid place-items-center gap-2">
+					<img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Pediatrician">
+					<span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Pediatrician
+					</span>
+				</div>
+
+				<div class="w-full h-auto grid place-items-center gap-2">
+					<img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Dermatologist">
+					<span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Dermatologist
+					</span>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- Services  -->
+		<section class="bg-emerald-600/40 w-full space-y-20 py-20">
+			<div class="w-full px-4 lg:px-0 lg:w-[80%] mx-auto space-y-12">
+				<span class="text-3xl tracking-wide text-white font-semibold uppercase"> Services </span>
+				<div class="grid grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-4">
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Skin
+							Lightening
+						</span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Acne
+							Treatment </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">Fat
+							Reduction </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Facial </span>
+					</div>
+
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Nutritional
+							Support </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Pharmaceutical
+							Care </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Laboratory and
+							Occupational Care </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Nutritional
+							Support </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Teeth
+							Cleanings </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Teeth
+							Whitening </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Extractions </span>
+					</div>
+					<div
+						class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+						<span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Dentures </span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- /End replace -->
+
+	</main>
+
+	
+</body>
+</html>

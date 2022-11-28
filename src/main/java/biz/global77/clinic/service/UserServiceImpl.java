@@ -18,6 +18,9 @@ import org.thymeleaf.expression.Dates;
 import biz.global77.clinic.model.User;
 import biz.global77.clinic.repository.UserRepository;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -34,8 +37,28 @@ public class UserServiceImpl implements UserService {
 	public User createUser(User user) {
 
 		user.setPassword(passwordEncode.encode(user.getPassword()));
+		user.setConfirmPassword(passwordEncode.encode(user.getConfirmPassword()));
+		user.setEnabled(false);
+		user.setAccountNonLocked(true);
 		user.setRole("ROLE_USER");
 		user.setRegistrationTime(dtf.format(now));
+
+		// final String ACCOUNT_SID = "AC6e468560159566ea34eb3c8e50c49c40";
+		// final String AUTH_TOKEN = "9638bf6cd3a97a41a45b30bc8d22243a";
+
+		// Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		// Message message = Message.creator(
+		// 		new com.twilio.type.PhoneNumber("+639610768081"),
+		// 		"MGc03f15fa700ba449638ca4d8682c793b",
+		// 		"Thank you for registering to Love Clinic App. \n You have registered with the ff credentials:\n "
+		// 				+ "Fullname: " + user.getFullName()
+		// 				+ "\n Address: " + user.getAddress()
+		// 				+ "\nEmail: " + user.getEmail()
+		// 				+ "\nPhone number" + user.getContactNumber())
+
+		// 		.create();
+
+		// System.out.println(message.getSid());
 
 		return userRepo.save(user);
 	}

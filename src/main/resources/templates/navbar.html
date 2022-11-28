@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns: th="http://www.thymeleaf.org" 
+th:fragment="layout(content)"
+lang="en" >
+<head th:fragment="html-heading">
+<meta charset="UTF-8">
+<title>Love Clinic App</title>
+<style>
+  body{
+
+    background-color: #ecfdf5;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23059669' fill-opacity='0.09' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");  }
+</style>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  
+</head>
+<body class="bg-light">
+  <div class="min-h-full" th:fragment="navigation-bar">
+  <nav class="bg-emerald-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+      
+        <div class="flex items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex flex-shrink-0 items-center">
+            <img class="block h-8 w-auto lg:hidden" th:src="@{/images/lclogo.png}" alt="Your Company">
+            <img class="hidden h-8 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Your Company">
+            <a th:href="@{|/${#strings.toLowerCase(#strings.substring(user.role,5,(#strings.length(user.role))))}/|}" class=" text-white px-3 py-2 rounded-md text-lg font-bold" aria-current="page">Love Clinic</a>
+          </div>
+         
+        </div>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          
+         
+        
+        <a  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/${#strings.toLowerCase(#strings.substring(user.role,5,(#strings.length(user.role))))}/dashboard|}">
+          <button sec:authorize ="isAuthenticated()" class="text-gray-400 hover:text-white px-2 rounded inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:hidden w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+            </svg>
+            
+            <span class="hidden md:block">Dashboard</span>
+          </button>
+        </a>
+        
+        <a href="#">
+          <button  sec:authorize ="isAuthenticated()" type="button" class="rounded-full bg-emerald-800 px-2 text-white hover:text-emerald-200">
+            <span class="sr-only">View notifications</span>
+            <!-- Heroicon name: outline/bell -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+            </svg>
+                  
+          </button>
+        </a>
+
+       
+
+        <a href="/logout">
+          <button  sec:authorize ="isAuthenticated()" type="button" class="rounded-full bg-emerald-800 px-2 text-white hover:text-emerald-200">
+            <span class="sr-only">View notifications</span>
+            <!-- Heroicon name: outline/bell -->
+              
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+            </svg>       
+          </button>
+        </a>
+
+        <button sec:authorize ="!hasRole('ROLE_USER')" class="text-white hover:text-emerald-200 py-2 px-4 rounded inline-flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span class="mr-1" sec:authorize ="hasRole('ROLE_DOCTOR')"> DR. </span>
+          <span class="mr-1" sec:authorize ="hasRole('ROLE_NURSE')"> NURSE: </span>
+          <span th:text="${user.fullName}"></span>
+        </button>
+
+          <!-- Profile dropdown -->
+          <a sec:authorize="hasRole('ROLE_USER')" href="profile">
+            <button sec:authorize ="isAuthenticated()" class="text-white hover:text-emerald-200 py-2 px-4 rounded inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+                            <span th:text="${user.fullName}"> </span>
+            </button>
+          </a>
+
+          <a href="/signin">
+            <button sec:authorize ="!isAuthenticated()" class="text-white hover:text-emerald-200 py-2 px-4 rounded inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+              </svg>  
+              <span> Sign-in</span>
+            </button>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  
+  </nav>
+</div>
+  <div th:replace="${content}"></div>
+
+  
+
+</body>
+</html>

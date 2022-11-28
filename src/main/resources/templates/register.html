@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en" class="h-full bg-gray-50">
 
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" th:href="@{/css/main.css}" />
-	<script src="../path/to/flowbite/dist/flowbite.js"></script>
-
-</head>
+<head th:replace="navbar :: html-heading">
 
 <body class="h-full bg-gray-200">
 
@@ -35,50 +27,60 @@
 				<p class="mt-2 text-center text-sm text-gray-600">
 				</p>
 			</div>
-			<form class="mt-8 space-y-6" action="createUser" method="POST">
+			<form class="mt-8 space-y-6" th:action="@{createUser}" method="post" th:object="${user}">
 				<input type="hidden" name="remember" value="true">
 				<div class="-space-y-px rounded-md shadow-sm">
 
-					<div>
+					<div class="form-group">
 						<label for="fullName" class="sr-only">Full Name</label>
-						<input id="fullName" name="fullName" type="text" required
-							class="form-control relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+						
+						<input id="fullName" name="fullName" type="text" th:field="*{fullName}"
+							class="form-control relative block w-full appearance-none 
+							rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 
+							placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 							placeholder="Full Name">
+							<span class="text-red-500 italic " th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full name error</span>
+							
 					</div>
 
 					<div>
 						<label for="address" class="sr-only">Address</label>
-						<input id="address" name="address" type="text" required
+						<input id="address" name="address" type="text" th:field="*{address}"
 							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 							placeholder="Address">
+							<span class="text-red-500 italic " th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Full name error</span>
 					</div>
 
 					<div>
 						<label for="contactNumber" class="sr-only">Contact Number</label>
-						<input id="contactNumber" name="contactNumber" type="text" required
+						<input id="contactNumber" name="contactNumber" type="text" th:field="*{contactNumber}"
 							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 							placeholder="Contact Number">
-					</div>
-
-					<div>
-						<label for="icNumber" class="sr-only">IC Number</label>
-						<input id="icNumber" name="icNumber" type="text" required
-							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="IC Number">
+							<span class="text-red-500 italic " th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}">Full name error</span>
 					</div>
 
 					<div>
 						<label for="email-address" class="sr-only">Email address</label>
-						<input id="email-address" name="email" type="email" autocomplete="email" required
+						<input id="email-address" name="email" type="email" autocomplete="email" th:field="*{email}"
 							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 							placeholder="Email address">
+							<span class="text-red-500 italic " th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Full name error</span>
 					</div>
 
 					<div>
 						<label for="password" class="sr-only">Password</label>
-						<input id="password" name="password" type="password" autocomplete="current-password" required
+						<input id="password" name="password" type="password" autocomplete="current-password" th:field="*{password}"
 							class="form-control relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 							placeholder="Password">
+							<span class="text-red-500 italic " th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Full name error</span>
+					</div>
+
+					<div>
+						<label for="confirmPassword" class="sr-only">Confirm Password</label>
+						<input id="confirmPassword" name="confirmPassword" type="password" autocomplete="current-password" th:field="*{confirmPassword}"
+							class="form-control relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+							placeholder="Confirm Password">
+							<span class="text-red-500 italic " th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Full name error</span>
 					</div>
 
 				</div>

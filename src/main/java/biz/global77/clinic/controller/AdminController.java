@@ -1,6 +1,7 @@
 package biz.global77.clinic.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import biz.global77.clinic.model.User;
 import biz.global77.clinic.repository.UserRepository;
 import biz.global77.clinic.service.UserService;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 
 @Controller
 @RequestMapping("/admin")
@@ -37,7 +41,14 @@ public class AdminController {
 
 	@GetMapping("/")
 	public String home() {
+
 		return "admin/home";
+	}
+
+	@GetMapping("/dashboard")
+	public String dashboard() {
+
+		return "admin/dashboard";
 	}
 
 	/**
@@ -46,7 +57,7 @@ public class AdminController {
 	 */
 	@GetMapping({ "listOfUser" })
 	public String viewUsers(Model model) {
-		return findPaginated(1, "fullName", "asc", model);
+		return findPaginated(1, "id", "asc", model);
 	}
 
 	/**
@@ -59,7 +70,7 @@ public class AdminController {
 	@GetMapping("/page/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir, Model model) {
-		int pageSize = 5;
+		int pageSize = 3;
 
 		Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
 		List<User> listUser = page.getContent();
