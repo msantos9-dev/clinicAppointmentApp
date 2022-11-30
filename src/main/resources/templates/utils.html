@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar:: html-heading">
+
+<body>
+
+  <!-- Modal template -->
+  <div class="flex space-x-2 justify-center" th:fragment="toastNotify" onclick="hidden">
+    <div class="bg-white shadow-lg mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block"
+      id="static-example" role="alert" aria-live="assertive" aria-atomic="true" data-mdb-autohide="false">
+      <div
+        class=" bg-white flex justify-between items-center py-2 px-3 bg-clip-padding border-b border-gray-200 rounded-t-lg">
+        <p class="font-bold text-gray-500">Alert</p>
+        <div class="flex items-center">
+
+          <button type="button"
+            class=" btn-close box-content w-4 h-4 ml-2 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+            data-mdb-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+      <div th:if="${emailExist}" class="p-3 bg-white rounded-b-lg break-words text-gray-700">
+        Email already exist
+      </div>
+    </div>
+  </div>
+
+  <!-- userListStylesheet -->
+  <style th:fragment="userListStylesheet">
+    [x-cloak] {
+      display: none;
+    }
+
+    [type="checkbox"] {
+      box-sizing: border-box;
+      padding: 0;
+    }
+
+    .form-checkbox {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      -webkit-print-color-adjust: exact;
+      color-adjust: exact;
+      display: inline-block;
+      vertical-align: middle;
+      background-origin: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      flex-shrink: 0;
+      color: currentColor;
+      background-color: #fff;
+      border-color: #e2e8f0;
+      border-width: 1px;
+      border-radius: 0.25rem;
+      height: 1.2em;
+      width: 1.2em;
+    }
+
+    .form-checkbox:checked {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+      border-color: transparent;
+      background-color: currentColor;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
+
+  <!-- userListScript -->
+  <script th:fragment="userListScript">
+    function datatables() {
+			return {
+				headings: [
+					{'key': 'id', 'value': 'User ID'},
+					{'key': 'fullName', 'value': 'FullName'},
+					{'key': 'email', 'value': 'Email'},
+					{'key': 'role', 'value': 'Role'},
+					{'key': 'actions', 'value': 'Actions'},
+					
+				],
+				selectedRows: [],
+
+				open: false,
+				
+				toggleColumn(key) {
+					// Note: All td must have the same class name as the headings key! 
+					let columns = document.querySelectorAll('.' + key);
+
+					if (this.$refs[key].classList.contains('hidden') && this.$refs[key].classList.contains(key)) {
+						columns.forEach(column => {
+							column.classList.remove('hidden');
+						});
+					} else {
+						columns.forEach(column => {
+							column.classList.add('hidden');
+						});
+					}
+				},
+
+				getRowDetail($event, id) {
+					let rows = this.selectedRows;
+
+					if (rows.includes(id)) {
+						let index = rows.indexOf(id);
+						rows.splice(index, 1);
+					} else {
+						rows.push(id);
+					}
+				},
+
+				selectAllCheckbox($event) {
+					let columns = document.querySelectorAll('.rowCheckbox');
+
+					this.selectedRows = [];
+
+					if ($event.target.checked == true) {
+						columns.forEach(column => {
+							column.checked = true
+							this.selectedRows.push(parseInt(column.name))
+						});
+					} else {
+						columns.forEach(column => {
+							column.checked = false
+						});
+						this.selectedRows = [];
+					}
+				}
+			}
+		}
+  </script>
+  
+
+
+
+</body>
+
+</html>

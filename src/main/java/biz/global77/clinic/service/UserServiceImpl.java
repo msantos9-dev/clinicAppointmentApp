@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.auditing.DateTimeProvider;
@@ -84,5 +85,26 @@ public class UserServiceImpl implements UserService {
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
 		return this.userRepo.findAll(pageable);
 	}
+
+	@Override
+	public User getUserById(int id) {
+		// TODO Auto-generated method stub
+		Optional<User> optional = userRepo.findById(id);
+		User user = null;
+		if (optional.isPresent()) {
+			user = optional.get();
+		} else {
+			throw new RuntimeException(" User not found for id :: " + id);
+		}
+		return user;
+	}
+
+	@Override
+	public void saveUser(User user) {
+		// TODO Auto-generated method stub
+		this.userRepo.save(user);
+	}
+
+	
 
 }

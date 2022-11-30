@@ -46,7 +46,7 @@ public class UserConfig implements UserDetails {
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return true;
+		return user.isAccountNonLocked();
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class UserConfig implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return user.isEnabled();
 	}
 
 }

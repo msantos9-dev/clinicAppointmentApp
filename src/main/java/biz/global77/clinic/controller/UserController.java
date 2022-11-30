@@ -36,7 +36,8 @@ public class UserController {
 	}
 
 	@GetMapping("/")
-	public String home() {
+	public String home(User user) {
+		System.out.println(user.isEnabled());
 		return "user/home";
 	}
 
