@@ -12,13 +12,15 @@
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="appointment">Appointment</a>
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="addUser">Register</a>
-                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a>
+                <!-- <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a> -->
             </header>
 
             <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
-                <span class="mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
-				Register Patient
-			</span>
+                <div class="py-3 px-6 border-gray-300 flex justify-between space-x-12 lg:space-x-0">
+                    <span class="mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
+				    Register Patient
+			    </span>
+                </div>
             </div>
             <div aria-label="form" class="focus:outline-none mx-auto max-w-2xl max-h-4xl bg-white p-14 mt-10 mb-10">
                 <h1 role="heading" aria-label="profile information" class="focus:outline-none text-3xl font-bold text-gray-800 mt-4">Add User</h1>

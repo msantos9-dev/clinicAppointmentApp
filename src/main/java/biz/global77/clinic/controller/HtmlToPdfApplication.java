@@ -62,6 +62,7 @@ public class HtmlToPdfApplication {
 		ve.init();
 		Template t = ve.getTemplate("templates/doctor/print_mc.html");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL d, YYYY");
+		DateTimeFormatter certName = DateTimeFormatter.ofPattern("hhmmss");
 
 		/* create a context and add data */
 		VelocityContext context = new VelocityContext();
@@ -86,6 +87,7 @@ public class HtmlToPdfApplication {
 		header.setContentType(MediaType.APPLICATION_PDF);
 		header.set(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=" + cert.getPatientID().getFullName().replace(" ", "_") + "_Certificate"
+						+ LocalDateTime.now().format(certName)
 						+ ".pdf");
 		header.setContentLength(baos.toByteArray().length);
 

@@ -74,14 +74,18 @@ public class NurseController {
     }
 
     @RequestMapping(value = "/addToQueue{id}", method = RequestMethod.GET)
-    public String addQueue(@PathVariable("id") int id, @Valid Queue queue, Model m) {
+    public String addQueue(@PathVariable("id") int id, @Valid Queue queue, Model m, Principal p) {
 
         Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        String email = p.getName();
+        User user = userRepo.findByEmail(email);
 
         appointment.setStatus("queued");
         appointmentRepo.save(appointment);
 
-        queueService.createQueue(queue, appointment);
+        queueService.createQueue(queue, appointment, user);
+
         return "redirect:/nurse/home";
     }
 

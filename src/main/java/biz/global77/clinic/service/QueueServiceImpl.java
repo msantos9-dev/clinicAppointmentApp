@@ -14,16 +14,17 @@ import biz.global77.clinic.repository.QueueRepository;
 
 @Service
 public class QueueServiceImpl implements QueueService {
-    
+
     @Autowired
-	private QueueRepository queueRepo;
+    private QueueRepository queueRepo;
 
     @Override
-    // public Queue createQueue(Queue queue, Appointment appointment, User nurse) {
-    public Queue createQueue(Queue queue, Appointment appointment) {
+    public Queue createQueue(Queue queue, Appointment appointment, User nurse) {
 
+        // public Queue createQueue(Queue queue, Appointment appointment) {
 
         queue.setPatientID(appointment.getPatientID());
+        // queue.setNurseID(nurse);
         queue.setType("Appointment");
 
         queue.setStartTime(LocalTime.now());

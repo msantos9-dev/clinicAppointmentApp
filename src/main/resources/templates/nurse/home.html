@@ -12,14 +12,17 @@
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="home">Home</a>
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="appointment">Appointment</a>
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addUser">Register</a>
-                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a>
+                <!-- <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a> -->
             </header>
 
             <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
-                <span class="mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
-				Today's Queue
-			</span>
+                <div class="py-3 px-6 border-gray-300 flex justify-between space-x-12 lg:space-x-0">
+                    <span class="mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
+				    Today's Queue
+			    </span>
+                </div>
             </div>
+
 
             <main>
                 <!-- <h3 align="center" style="color: rgb(13, 97, 65)"><b>Currently Serving</b></h3>
@@ -43,9 +46,9 @@
 						</tbody>
 	
 				</table> -->
-                <br></br>
+                <!-- <br></br> -->
 
-                <h3 align="center" class="text-green-500"><b>Queue</b></h3>
+                <!-- <h3 align="center" class="text-green-500"><b>Queue</b></h3> -->
 
                 <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
 
@@ -59,9 +62,14 @@
                             <th style="text-align: center">Appointment Type</th>
                             <th style="text-align: center">Action</th>
 
-
                         </tr>
                         <tbody>
+                            <section th:if="${queueList.isEmpty()}">
+                                <td colspan="6" class="border-dashed border-t border-gray-200 text-center">
+                                    Queue is empty
+                                </td>
+                            </section>
+
                             <tr th:each="queue: ${queueList}">
                                 <td class="border-dashed border-t border-gray-200 text-center">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${queue.id}"></span>
