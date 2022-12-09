@@ -46,7 +46,6 @@ public class HomeController {
 
 	@GetMapping("/register")
 	public String showForm(User user) {
-
 		return "register";
 	}
 
@@ -54,13 +53,23 @@ public class HomeController {
 	public String createuser(@Valid User user,
 			Errors errors, Model model) {
 
-		boolean f = userService.checkEmail(user.getEmail());
-
+		boolean emailExist = userService.checkEmail(user.getEmail());
+		long phoneExist = userService.getAllUser().stream()
+				.filter(i -> i.getContactNumber().equals(user.getContactNumber())).count();
+		System.out.println("Email exist:" + emailExist);
+		System.out.println("Phone exist:" + phoneExist);
 		if (null != errors && errors.getErrorCount() > 0) {
 
 			return "register";
 		} else {
-
+			if (phoneExist > 0) {
+				model.addAttribute("phoneExist", "This phone is already registered");
+				return "register";
+			} else if (emailExist) {
+				model.addAttribute("emailExist", "This email is already registered");
+				return "register";
+			}
+			userService.createUser(user);
 			return "redirect:/";
 		}
 

@@ -3,91 +3,83 @@
 
 <head th:replace="navbar :: html-heading">
 
-<body class="h-full bg-gray-200">
+    <body class="h-full bg-gray-200">
 
-	<th:block th:if="${session.msg}">
-		<div onclick="hidden" class="flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700" role="alert">
-			<svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-				<path fill-rule="evenodd"
-					d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-					clip-rule="evenodd"></path>
-			</svg>
-			<div>
-				<span class="font-medium">Danger alert!</span> Change a few things up and try submitting again.
-			</div>
-		</div>
-		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
-	</th:block>
+        <!-- <div th:if="${emailExist}" >
+		<div th:replace="utils :: toastNotify"></div>
+	</div> -->
 
-	<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-		<div class="w-full max-w-md space-y-8">
-			<div>
-				<a  href="/"><img class="mx-auto h-12 w-auto" th:src="@{/images/lclogo.png}" alt="Love Clinic Logo"></a>
-				<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Account Registration</h2>
-				<p class="mt-2 text-center text-sm text-gray-600">
-				</p>
-			</div>
-			<form class="mt-8 space-y-6" th:action="@{createUser}" method="post" th:object="${user}">
-				<input type="hidden" name="remember" value="true">
-				<div class="-space-y-px rounded-md shadow-sm">
+        <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="w-full max-w-md space-y-8">
+                <div>
+                    <a href="/"><img class="mx-auto h-12 w-auto" th:src="@{/images/lclogo.png}" alt="Love Clinic Logo"></a>
+                    <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Account Registration</h2>
+                    <p class="mt-2 text-center text-sm text-gray-600">
+                    </p>
+                </div>
 
-					<div class="form-group">
-						<label for="fullName" class="sr-only">Full Name</label>
-						
-						<input id="fullName" name="fullName" type="text" th:field="*{fullName}"
-							class="form-control relative block w-full appearance-none 
+                <form class="mt-8 space-y-6" th:action="@{createUser}" method="post" th:object="${user}">
+                    <input type="hidden" name="remember" value="true">
+                    <div class="-space-y-px rounded-md shadow-sm">
+
+                        <div class="form-group">
+                            <label for="fullName" class="sr-only">Full Name</label>
+
+                            <input id="fullName" name="fullName" type="text" th:field="*{fullName}" class="form-control relative block w-full appearance-none 
 							rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 
-							placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="Full Name">
-							<span class="text-red-500 italic " th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full name error</span>
-							
-					</div>
+							placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Full Name">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
 
-					<div>
-						<label for="address" class="sr-only">Address</label>
-						<input id="address" name="address" type="text" th:field="*{address}"
-							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="Address">
-							<span class="text-red-500 italic " th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Full name error</span>
-					</div>
+                        </div>
 
-					<div>
-						<label for="contactNumber" class="sr-only">Contact Number</label>
-						<input id="contactNumber" name="contactNumber" type="text" th:field="*{contactNumber}"
-							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="Contact Number">
-							<span class="text-red-500 italic " th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}">Full name error</span>
-					</div>
+                        <div>
+                            <label for="address" class="sr-only">Address</label>
+                            <input id="address" name="address" type="text" th:field="*{address}" class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Address">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                        </div>
 
-					<div>
-						<label for="email-address" class="sr-only">Email address</label>
-						<input id="email-address" name="email" type="email" autocomplete="email" th:field="*{email}"
-							class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="Email address">
-							<span class="text-red-500 italic " th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Full name error</span>
-					</div>
+                        <div>
+                            <label for="contactNumber" class="sr-only">Contact Number</label>
+                            <input id="contactNumber" name="contactNumber" type="text" th:field="*{contactNumber}" class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Contact Number">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></span>
+                            <div class="text-red-500 italic " th:if="${phoneExist}">Phone number already in use</div>
+                        </div>
 
-					<div>
-						<label for="password" class="sr-only">Password</label>
-						<input id="password" name="password" type="password" autocomplete="current-password" th:field="*{password}"
-							class="form-control relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="Password">
-							<span class="text-red-500 italic " th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Full name error</span>
-					</div>
+                        <div>
+                            <label for="email-address" class="sr-only">Email address</label>
+                            <input id="email-address" name="email" type="email" autocomplete="email" th:field="*{email}" class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Email address">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                            <div class="text-red-500 italic " th:if="${emailExist}">Email already in use</div>
+                        </div>
 
-					<div>
-						<label for="confirmPassword" class="sr-only">Confirm Password</label>
-						<input id="confirmPassword" name="confirmPassword" type="password" autocomplete="current-password" th:field="*{confirmPassword}"
-							class="form-control relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-							placeholder="Confirm Password">
-							<span class="text-red-500 italic " th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Full name error</span>
-					</div>
+                        <div>
+                            <label for="validIdNumber" class="sr-only">Valid Id Number</label>
+                            <input id="validIdNumber" name="email" type="text" th:field="*{validIdNumber}" class="form-control relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Valid ID Number">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('validIdNumber')}" th:errors="*{validIdNumber}"></span>
+                        </div>
 
-				</div>
+                        <div>
+                            <label for="password" class="sr-only">Password</label>
+                            <input id="password" name="password" type="password" th:field="*{password}" class="form-control relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Password">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        </div>
 
-				<div>
-					<button type="submit"
-						class="group relative flex w-full justify-center rounded-md border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <div>
+                            <label for="confirmPassword" class="sr-only">Confirm Password</label>
+                            <input id="confirmPassword" name="confirmPassword" type="password" th:field="*{confirmPassword}" class="form-control relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Confirm Password">
+                            <span class="text-red-500 italic " th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">r</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
 						<span class="absolute inset-y-0 left-0 flex items-center pl-3">
 							<!-- Heroicon name: mini/lock-closed -->
 							<svg class="h-5 w-5 text-emerald-500 group-hover:text-emerald-600"
@@ -100,18 +92,18 @@
 						</span>
 						Register
 					</button>
-				</div>
-				<div class="flex items-center justify-between">
-					<div class="text-sm">
-						Already have an account? <a href="signin" class="font-medium text-emerald-600 hover:text-emerald-500"> Log-in</a>
-					</div>
-					
-				  </div>
-			</form>
-		</div>
-	</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm">
+                            Already have an account? <a href="signin" class="font-medium text-emerald-600 hover:text-emerald-500"> Log-in</a>
+                        </div>
 
-	<script src="../path/to/flowbite/dist/flowbite.js"></script>
-</body>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </body>
 
 </html>

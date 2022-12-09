@@ -1,6 +1,8 @@
 package biz.global77.clinic.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +24,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Table(name = "medicalCertificate")
-public class MedicalCertificate {
+public class MedicalCertificate implements Serializable {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,7 @@ public class MedicalCertificate {
 
     private String reason;
 
-    private String date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
 }
