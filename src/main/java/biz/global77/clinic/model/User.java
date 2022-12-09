@@ -44,8 +44,8 @@ public class User {
 
 	@NotNull
 	@NotBlank(message = "Contact number is mandatory")
-	private String contactNumber; 
-	
+	private String contactNumber;
+
 	@NotNull
 	@NotBlank(message = "Valid ID number is mandatory")
 	private String validIdNumber;//

@@ -19,12 +19,14 @@ import biz.global77.clinic.repository.UserRepository;
 		private UserRepository userRepo;
 
 		@Override
-		public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
 
 			User user = userRepo.findByEmail(email);
 
-			if (user != null) {
+			if (user != null && user.isEnabled()) {
 				return new UserConfig(user);
+			}else{
+				
 			}
 
 			throw new UsernameNotFoundException("user not available");

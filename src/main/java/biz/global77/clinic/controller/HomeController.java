@@ -49,6 +49,12 @@ public class HomeController {
 		return "register";
 	}
 
+	@GetMapping("/verifyAccount")
+	public String showVerify() {
+
+		return "verifyAccount";
+	}
+
 	@PostMapping("/createUser")
 	public String createuser(@Valid User user,
 			Errors errors, Model model) {
