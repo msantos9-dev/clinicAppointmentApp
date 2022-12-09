@@ -46,7 +46,6 @@ public class HomeController {
 
 	@GetMapping("/register")
 	public String showForm(User user) {
-
 		return "register";
 	}
 

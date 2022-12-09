@@ -43,13 +43,11 @@ public class UserController {
 
 	@GetMapping("/profile")
 	public String userProfile() {
-
 		return "user/profile";
 	}
 
 	@GetMapping("/editprofile")
 	public String userEditProfile() {
-
 		return "user/editprofile";
 	}
 

@@ -39,4 +39,6 @@ public class Appointment {
 
     private String timeSlot;
 
+    private String status;
+
 }

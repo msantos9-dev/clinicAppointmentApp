@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        
+        p.big {
+          line-height: 2.5;
+          text-indent: 30px;
+          text-align: justify;
+        }
+        p.right {
+            text-align: right;
+          }
+        </style>
+<body>
+    <!-- <img src="../static/images/lclogo.png" alt="Trulli" width="500" height="333"> -->
+    <h3 align="center">Love Clinic</h3>
+    <h4 align="center">52C, Sampaguita St, Manila</h4>
+    <h4 align="center">Tel: (02)23423423 | Email: loveclinic@gmail.com</h4> 
+        <br></br>
+        <h2 align="center">MEDICAL CERTIFICATE</h2>
+        <br></br>
+        <p class="right">Date: <b>${genDateTime}</b></p>
+        <br></br>
+
+<b>TO WHOM IT MAY CONCERN:</b>
+<br></br>
+
+<p class="big">
+    This is to certify that <b>${name}</b> of <b>${address}</b> has been examined in Love Clinic as a patient on <b>${date}</b> with the following diagnosis: <b>${reason}</b>. This certificate is being issued for whatever legal purposes it may serve the patient.
+</p>
+<br></br>
+<br></br>
+
+<p class="right">Assigned Doctor: <b>${doctor}</b></p>
+
+
+</body>
+</html>
