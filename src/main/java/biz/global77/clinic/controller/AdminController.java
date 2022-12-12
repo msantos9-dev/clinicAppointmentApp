@@ -2,14 +2,21 @@ package biz.global77.clinic.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,52 +53,81 @@ public class AdminController {
 
 	@GetMapping("/")
 	public String home() {
-
 		return "admin/home";
 	}
 
-	@GetMapping("/dashboard")
-	public String dashboard() {
+	// @GetMapping("/addUser")
+	// public String addUser(Model model) {
+	// User user = new User();
+	// model.addAttribute("User", user);
+	// return "admin/addUser";
+	// }
 
-		return "admin/dashboard";
+	@GetMapping("/addUser")
+	public String addUser(Model model) {
+		User user = new User();
+		model.addAttribute("User", user);
+		return "admin/addUser";
 	}
 
 	/**
 	 * @param model
 	 * @return
 	 */
+
 	@GetMapping({ "listOfUser" })
-	public String viewUsers(Model model) {
-		List<User> listUser = userService.getAllUser();
+	public String viewUsers(Model model, @Param("keyword") String keyword) {
 
+		List<User> listUser = userService.findWithSearch(keyword).stream().sorted(Comparator.comparing(User::getId))
+				.collect(Collectors.toList());
 		model.addAttribute("listUser", listUser);
-		return "admin/dashboard";
+		model.addAttribute("keyword", keyword);
 
+		// return "admin/dashboard";
+
+		return findPaginated(1, "id", "asc", model);
 	}
+
+	// @GetMapping("{listOfUser}")
+	// public String viewHomePage(Model model) {
+	// return findPaginated(1, "id", "asc", model);
+	// }
 
 	@GetMapping("/updateUser/{id}")
 	public String editUser(@PathVariable(value = "id") int id, Model model) {
 
-		User User = userService.getUserById(id);
-		System.out.println("User" + User);
-		model.addAttribute("User", User);
+		User selectedUser = userService.getUserById(id);
+		System.out.println("User" + selectedUser);
+		model.addAttribute("selectedUser", selectedUser);
 
 		return "admin/editUser";
 	}
 
 	@PostMapping("/saveUser")
-	public String saveUser(@Valid User user,
+	public String saveUser(@Valid @ModelAttribute("User") User selectedUser,
 			Errors errors, Model model) {
-		if (null != errors && errors.getErrorCount() > 0) {
-			System.out.println("Role:" + user.getRole());
-			System.out.println("Password:" + user.getConfirmPassword());
-			return "redirect:/";
-		} else {
-			System.out.println("User:" + user);
-			userService.saveUser(user);
-			return "admin/dashboard";
-		}
+		// boolean emailExist = userService.checkEmail(selectedUser.getEmail());
+		// long phoneExist = userService.getAllUser().stream()
+		// .filter(i ->
+		// i.getContactNumber().equals(selectedUser.getContactNumber())).count();
+		// System.out.println("Email exist:" + emailExist);
+		// System.out.println("Phone exist:" + phoneExist);
+		if (errors.hasErrors()) {
+			System.out.println("Role:" + selectedUser.getRole());
+			System.out.println("Password:" + selectedUser.getConfirmPassword());
+			System.out.println(selectedUser);
+			return "redirect:addUser";
+		} else
+			System.out.println("User:" + selectedUser);
+		userService.createUser(selectedUser);
+		return "redirect:listOfUser";
+	}
 
+	@PostMapping("/saveUpdate")
+	public String saveUpdate(@ModelAttribute("selectedUser") @Valid User selectedUser,
+			Errors errors, Model model) {
+		userService.saveUser(selectedUser);
+		return "redirect:listOfUser";
 	}
 
 	/**
@@ -101,24 +137,22 @@ public class AdminController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/page/{pageNo}")
+	@GetMapping("page/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir, Model model) {
-		int pageSize = 3;
+		int pageSize = 10;
 
 		Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
 		List<User> listUser = page.getContent();
-
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
 		model.addAttribute("listUser", listUser);
-		return "admin/userList";
+		return "admin/dashboard";
 	}
 
 }

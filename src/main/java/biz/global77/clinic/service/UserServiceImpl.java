@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.expression.Dates;
@@ -39,9 +40,11 @@ public class UserServiceImpl implements UserService {
 
 		user.setPassword(passwordEncode.encode(user.getPassword()));
 		user.setConfirmPassword(passwordEncode.encode(user.getConfirmPassword()));
-		user.setEnabled(false);
+		user.setEnabled(true);
 		user.setAccountNonLocked(true);
-		user.setRole("ROLE_USER");
+		if (user.getRole() == null) {
+			user.setRole("ROLE_USER");
+		}
 		user.setRegistrationTime(dtf.format(now));
 
 		// final String ACCOUNT_SID = "AC6e468560159566ea34eb3c8e50c49c40";
@@ -49,19 +52,38 @@ public class UserServiceImpl implements UserService {
 
 		// Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		// Message message = Message.creator(
-		// 		new com.twilio.type.PhoneNumber("+639610768081"),
-		// 		"MGc03f15fa700ba449638ca4d8682c793b",
-		// 		"Thank you for registering to Love Clinic App. \n You have registered with the ff credentials:\n "
-		// 				+ "Fullname: " + user.getFullName()
-		// 				+ "\n Address: " + user.getAddress()
-		// 				+ "\nEmail: " + user.getEmail()
-		// 				+ "\nPhone number" + user.getContactNumber())
+		// new com.twilio.type.PhoneNumber("+639610768081"),
+		// "MGc03f15fa700ba449638ca4d8682c793b",
+		// "Thank you for registering to Love Clinic App. \n You have registered with
+		// the ff credentials:\n "
+		// + "Fullname: " + user.getFullName()
+		// + "\n Address: " + user.getAddress()
+		// + "\nEmail: " + user.getEmail()
+		// + "\nPhone number" + user.getContactNumber())
 
-		// 		.create();
+		// .create();
 
 		// System.out.println(message.getSid());
 
 		return userRepo.save(user);
+	}
+
+	// @Override
+	// public List<User> findByFullNameContaining(String fullName) {
+	// // TODO Auto-generated method stub
+	// return userRepo.findByFullNameContaining(fullName);
+	// }
+
+	@Override
+	public List<User> findWithSearch(String keyword) {
+		// TODO Auto-generated method stub
+
+		if (keyword != null && keyword != "") {
+			keyword = keyword.toUpperCase();
+			return userRepo.search(keyword);
+		}
+
+		return userRepo.findAll();
 	}
 
 	@Override
@@ -104,7 +126,5 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		this.userRepo.save(user);
 	}
-
-	
 
 }

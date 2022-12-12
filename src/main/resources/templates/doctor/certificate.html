@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar:: html-heading">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+    <div th:replace="navbar :: navigation-bar"></div>
+
+    <section class=" min-h-screen px-4 py-6 bg-gray-200 dark:bg-gray-900 min-w-full">
+
+        <header class=" px-4 py-2 rounded-sm space-x-4">
+            <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
+            <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="history">History</a>
+
+        </header>
+        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
+            <span class="cursor-default mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
+				Diagnosis
+			</span>
+        </div>
+
+        <main>
+
+
+
+            <form class="min-w-[50%] rounded-md bg-gray-300 dark:bg-gray-800 max-w-fit mx-auto" action="#" method="post" th:action="@{'genCert'}" th:object="${appointment}">
+
+                <div class=" px-6 py-5 max-w-2xl mx-auto">
+                    <div class="space-x-2 border-b border-gray-200 dark:border-gray-600">
+                        <span class="leading-loose text-3xl uppercase text-green-700 dark:text-white font-semibold">
+                        Medical Certificate
+                    </span>
+                    </div>
+
+
+                    <div class="mt-4 space-y-4">
+                        <section>
+                            <div class="mb-4">
+                                <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 dark:text-gray-200">Patient Information</h2>
+                            </div>
+
+                            <div class="grid grid-cols-7">
+
+                                <label disabled for="name" class="text-lx my-auto text-gray-800 dark:text-gray-200">Name:</label>
+                                <input disabled th:field="*{patientID.fullName}" id="name" class="bg-gray-200 ml-2 outline-none py-1 px-2 text-md border-2 rounded-md col-span-6" />
+                            </div>
+                            <div>
+                                <label hidden for="name" class="text-lx text-gray-800 dark:text-gray-200">Patient's Name:</label>
+                                <input hidden th:field="*{patientID.fullName}" id="name" class="bg-gray-200 ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+                            <br>
+
+                            <div class="grid grid-cols-7">
+                                <label disabled for="id" class="my-auto text-lx text-gray-800 dark:text-gray-200">ID:</label>
+                                <input disabled th:field="*{patientID.id}" id="id" class="bg-gray-200 ml-2 outline-none py-1 px-2 text-md border-2 rounded-md col-span-6" />
+                            </div>
+                            <div>
+                                <label hidden for="id" class="text-lx text-gray-800 dark:text-gray-200">Patient's ID:</label>
+                                <input hidden th:field="*{patientID}" id="patientID" class="bg-gray-200 ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+                            <div>
+                                <label hidden for="doctorID" class="text-lx text-gray-800 dark:text-gray-200">Doctor's ID:</label>
+                                <input hidden th:field="*{doctorID}" id="doctorID" class="bg-gray-200 ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+                            <br>
+
+                            <div class="grid grid-cols-7">
+                                <label for="date" class="text-lx text-gray-800 my-auto dark:text-gray-200">Date:</label>
+                                <input type="date" name="date" id="date" class="bg-gray-100 ml-2  outline-none py-1 px-2 text-md  rounded-md col-span-6" />
+                            </div>
+                            <br>
+
+                            <!-- <div>
+                        <label for="title" class="text-lx font-serif">Days:</label>
+                        <input type="number"  placeholder="Enter days..." id="title" class="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                      </div>                  -->
+
+                            <div class="space-y-4">
+                                <label for="reason" class="text-lx text-gray-800 dark:text-gray-200">Reason:</label>
+                                <textarea type="text" name="reason" id="reason" cols="30" rows="5" class="w-full p-4 text-gray-600 bg-gray-100 outline-none rounded-md"></textarea>
+                            </div>
+                        </section>
+
+                        <div class="flex justify-center">
+                            <div class="flex items-center justify-center space-x-4">
+                                <a onclick="history.go(-1)" class="text-gray-500 cursor-pointer bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg border border-gray-200 text-sm px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                    <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                class="w-5 h-5 mx-2">
+                                <path fill-rule="evenodd"
+                                    d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                                Back
+                            
+                            </span>
+                                </a>
+                                <button type="submit" class="flex items-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Preview Certificate
+                    </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+            </form>
+            </div>
+
+        </main>
+
+    </section>
+    <div th:replace="footer :: footer"></div>
+
+
+</body>
+
+</html>

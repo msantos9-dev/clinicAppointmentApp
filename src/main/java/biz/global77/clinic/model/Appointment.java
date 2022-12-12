@@ -1,6 +1,6 @@
 package biz.global77.clinic.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,12 +17,12 @@ import lombok.ToString;
 @Entity
 @EqualsAndHashCode
 @ToString
-@Table(name = "appointment")
+@Table
 public class Appointment {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private User patientID;
@@ -37,6 +34,9 @@ public class Appointment {
 
     private String remarks;
 
+    private Date date;
+
     private String timeSlot;
 
+    private String status;
 }

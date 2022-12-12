@@ -1,132 +1,138 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns: th="http://www.thymeleaf.org" 
-lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
 <head th:replace="navbar:: html-heading">
+
 <body>
-		<div th:replace="navbar :: navigation-bar"></div>
-		
-        <section>
-            <header class="mt-2 bg-white shadow mr-2 ml-2 ">
-                <div class="mx-auto max-w-6xl py-2 px-2 sm:px-6 lg:px-8">
-                    <h3 class="text-lg font-bold tracking-tight text-gray-900">
-                        <a href="../profile" class="hover:text-blue-500 cursor-pointer">Patient's
-                            Profile
-                        </a>
-    
-                        <!-- <span onclick="history.go(-1)" class="hover:text-blue-500 cursor-pointer">Patient's
+    <div th:replace="navbar :: navigation-bar"></div>
+
+    <section>
+        <header class="mt-2 bg-white shadow mr-2 ml-2 ">
+            <div class="mx-auto max-w-6xl py-2 px-2 sm:px-6 lg:px-8">
+                <h3 class="text-lg font-bold tracking-tight text-gray-900">
+                    <a href="/user/profile" class="hover:text-blue-500 cursor-pointer">Patient's
+                        Profile
+                    </a>
+
+                    <!-- <span onclick="history.go(-1)" class="hover:text-blue-500 cursor-pointer">Patient's
                             Profile
                         </span> -->
-                        &nbsp; > &nbsp;Edit Profile
-                    </h3>
-                </div>
-            </header>
-    
-            <main class="bg-gray-100 min-h-screen">
-                <div class="mx-auto max-w-6xl py-6 sm:px-6 lg:px-8">
-                    <!-- Replace with your content -->
-                    <div class="sm:px-0 px-4 py-6 bg-white rounded-md">
-    
-                        <form class="mt-8 space-y-6 mx-auto w-[80%]" action="createUser" method="POST">
-                            <input type="hidden" name="remember" value="true">
-    
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="image" class="lg:text-lg lg:tracking-wide mr-auto">
-                                    Avatar
+                    &nbsp; > &nbsp;Edit Profile
+                </h3>
+            </div>
+        </header>
+
+        <main class="bg-gray-100 min-h-screen">
+            <div class="mx-auto max-w-6xl py-6 sm:px-6 lg:px-8">
+                <!-- Replace with your content -->
+                <div class="sm:px-0 px-4 py-6 bg-white rounded-md">
+
+                    <form class="mt-8 space-y-6 mx-auto w-[80%]" action="createUser" method="POST">
+                        <input type="hidden" name="remember" value="true">
+
+                        <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                            <label for="image" class="lg:text-lg lg:tracking-wide mr-auto">
+                                Avatar
+                            </label>
+
+
+                            <div class="relative">
+                                <img th:src="@{/images/profilepicture.png}" class="w-40 h-40 rounded-full my-auto"
+                                    alt="User's profile image">
+                                <label for="image"
+                                    class="absolute bottom-1 -right-2 bg-gray-200 rounded-full p-2 cursor-pointer hover:bg-gray-700 hover:text-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                                    </svg>
                                 </label>
-    
-    
-                                <div class="relative">
-                                    <img th:src="@{/images/profilepicture.png}" class="w-40 h-40 rounded-full my-auto"
-                                        alt="User's profile image">
-                                    <label for="image"
-                                        class="absolute bottom-1 -right-2 bg-gray-200 rounded-full p-2 cursor-pointer hover:bg-gray-700 hover:text-gray-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                                        </svg>
-                                    </label>
-                                </div>
-    
-                                <input type="file" id="image" class="hidden" />
                             </div>
-    
-                            <div class="space-y-3 lg:-space-y-px">
-                                <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                    <label for="fullName" class="lg:text-lg lg:tracking-wide mr-auto">Full Name <sup
-                                            class="font-bold text-red-500 text-md m-auto">*</sup>
-                                    </label>
-                                    <input id="fullName" name="fullName" type="text" required class="
+
+                            <input type="file" id="image" class="hidden" />
+                        </div>
+
+                        <div class="space-y-3 lg:-space-y-px">
+                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                                <label for="fullName" class="lg:text-lg lg:tracking-wide mr-auto">Full Name <sup
+                                        class="font-bold text-red-500 text-md m-auto">*</sup>
+                                </label>
+                                <input id="fullName" name="fullName" type="text" required class="
                                                 col-span-3 form-control relative block w-full appearance-none
                                                 rounded-none rounded-t-md
                                                  border border-gray-300 p-3
                                                 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Full Name">
-                                </div>
-    
-                                <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                    <label for="address" class="lg:text-lg lg:tracking-wide mr-auto">Address <sup
-                                            class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                    <input id="address" name="address" type="text" required class="
+                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Full Name">
+                            </div>
+
+                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                                <label for="address" class="lg:text-lg lg:tracking-wide mr-auto">Address <sup
+                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
+                                <input id="address" name="address" type="text" required class="
                                                 col-span-3 form-control relative block w-full appearance-none
                                                  border border-gray-300 p-3
                                                 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Address">
-                                </div>
-    
-                                <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                    <label for="contactNumber" class="lg:text-lg lg:tracking-wide mr-auto">Contact No. <sup
-                                            class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                    <input id="contactNumber" name="contactNumber" type="text" required class="
+                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Address">
+                            </div>
+
+                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                                <label for="contactNumber" class="lg:text-lg lg:tracking-wide mr-auto">Contact No. <sup
+                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
+                                <input id="contactNumber" name="contactNumber" type="text" required class="
                                                 col-span-3 form-control relative block w-full appearance-none
                                                  border border-gray-300 p-3
                                                 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Contact Number">
-                                </div>
-    
-                                <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                    <label for="icNumber" class="lg:text-lg lg:tracking-wide mr-auto">IC Number <sup
-                                            class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                    <input id="icNumber" name="icNumber" type="text" required class="
+                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Contact Number">
+                            </div>
+
+                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                                <label for="icNumber" class="lg:text-lg lg:tracking-wide mr-auto">IC Number <sup
+                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
+                                <input id="icNumber" name="icNumber" type="text" required class="
                                             col-span-3 form-control relative block w-full appearance-none
                                              border border-gray-300 p-3
                                             text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                             focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="IC Number">
-                                </div>
-    
-                                <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                    <label for="email-address" class="lg:text-lg lg:tracking-wide mr-auto">Email address
-                                        <sup class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                    <input id="email-address" name="email" type="email" autocomplete="email" required class="
+                                             focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="IC Number">
+                            </div>
+
+                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                                <label for="email-address" class="lg:text-lg lg:tracking-wide mr-auto">Email address
+                                    <sup class="font-bold text-red-500 text-md m-auto">*</sup></label>
+                                <input id="email-address" name="email" type="email" autocomplete="email" required class="
                                             col-span-3 form-control relative block w-full appearance-none
                                              border border-gray-300 p-3
                                             text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                             focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Email address">
-                                </div>
-    
-                                <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                    <label for="password" class="lg:text-lg lg:tracking-wide mr-auto">Password <sup
-                                            class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                    <input id="password" name="password" type="password" autocomplete="current-password"
-                                        required class="
+                                             focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Email address">
+                            </div>
+
+                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
+                                <label for="password" class="lg:text-lg lg:tracking-wide mr-auto">Password <sup
+                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
+                                <input id="password" name="password" type="password" autocomplete="current-password"
+                                    required class="
                                             col-span-3 form-control relative block w-full appearance-none
                                             rounded-none rounded-b-md
                                              border border-gray-300 p-3
                                             text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                             focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Password">
-                                </div>
-    
+                                             focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Password">
                             </div>
-    
-                            <div>
-                                <!-- <button type="submit" change this later -->
-                                <button
-                                    class="group flex m-auto rounded-md justify-center  border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                    Submit
-                                    <!--
+
+                        </div>
+
+                        <div>
+                            <!-- <button type="submit" change this later -->
+                            <button
+                                class="group flex m-auto rounded-md justify-center  border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                Submit
+                                <!--
                                     &nbsp;
     
                                      <span class="animate-pulse">
@@ -137,18 +143,19 @@ lang="en">
                                                 clip-rule="evenodd" />
                                         </svg>
                                     </span> -->
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <!-- /End replace -->
-                </div>
-            </main>
-        </section>
-    
+            </div>
+            <!-- /End replace -->
+            </div>
+        </main>
+    </section>
 
 
-		<div th:replace="footer :: footer"></div>
+
+    <div th:replace="footer :: footer"></div>
 </body>
+
 </html>

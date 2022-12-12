@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar:: html-heading">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+    <div th:replace="navbar :: navigation-bar"></div>
+    <section class="min-h-screen px-4 py-6 bg-gray-200 dark:bg-gray-900">
+
+
+
+        <header class=" px-4 py-2 rounded-sm space-x-4">
+            <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
+            <a class="nav-link text-gray-800 font-bold hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="history">History</a>
+
+        </header>
+        <span th:if="${check != null}"> 
+
+        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
+            <span class="cursor-default mb-2 text-3xl tracking-tight text-green-700 dark:text-white">
+				
+                Diagnosis > <b>Patient's Appointment History</b>
+
+			</span>
+        </div>
+        </span>
+        <span th:if="${check == yes}">
+        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
+            <span class="cursor-default mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
+				Previous Appointments
+			</span>
+        </div>
+        </span>
+        <main>
+            <span th:if="${check != null}">
+
+            <div  onclick="history.go(-1)" class="flex items-center p-6 space-x-2  border-gray-200 rounded-b dark:border-gray-600">
+
+                <!-- back button -->
+                <a class="text-gray-500 cursor-pointer bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <span class="flex items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+						class="w-5 h-5 mx-2">
+						<path fill-rule="evenodd"
+							d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
+							clip-rule="evenodd" />
+					</svg> &nbsp;
+					Back
+				</span>
+            </a>
+            </div>
+            </span>
+            <!-- <span th:if="${check != null}">
+            <div class="mt-4">
+                <h3 align="center" class="text-green-500"><b>Patient's Appointment History</b></h3>
+            </div>
+            </span>
+            <span th:if="${check == yes}">
+            <div class="mt-4">
+                <h3 align="center" class="text-green-500"><b>Your Past Appointments</b></h3>
+            </div>
+            </span> -->
+
+            <div class="mx-auto max-w-7xl p-6 lg:px-8">
+                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+                    <tr class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs rounded-t-sm">
+                        <th class="text-center py-2">Appt. No.</th>
+                        <th class="text-center py-2">Patient ID</th>
+                        <th class="text-center py-2">Patient Name</th>
+                        <span th:if="${check != null}">
+                            <th class="text-center py-2">Doctor Name</th>
+                        </span>
+                        <th class="text-center py-2">Remarks</th>
+
+                    </tr>
+
+                    <tbody>
+                        <tr th:each="appointment: ${listOfAppointments}">
+                            <td class="border-dashed border-t border-gray-200 text-center">
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.id}"></span>
+                            </td>
+                            <td class="border-dashed border-t border-gray-200 text-center">
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.patientID.id}"></span>
+                            </td>
+                            <td class="border-dashed border-t border-gray-200 text-center">
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.patientID.fullName}"></span>
+                            </td>
+                            <span th:if="${check != null}">
+
+                            <td class="border-dashed border-t border-gray-200 text-center">
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.doctorID.fullName}"></span>
+                            </td>
+                            </span>
+
+                            <td class="border-dashed border-t border-gray-200 text-center">
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.remarks}"></span>
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!-- /End replace -->
+
+            </div>
+        </main>
+
+    </section>
+    <div th:replace="footer :: footer"></div>
+
+
+</body>
+
+</html>
