@@ -1,0 +1,38 @@
+:root {
+    --white-black: white;
+    --black-white: black;
+    --tertiary-color: #bbf7d0;
+    --shadow1: rgba(0,0,0,0.44);
+    
+  }
+  
+  .darkTheme {
+    --white-black: black;
+    --black-white: white;
+    --tertiary-color: rgb(0, 0, 0);
+    --shadow1: rgba(68, 68, 68, 0.44);
+  }
+  
+  body {
+    background-color: var(--white-black);
+  }
+
+
+  /* User List */
+  #userList {
+    background-color: var(--tertiary-color);
+    color: var(--black-white);
+  }
+
+  #userList table {
+    background-color: var(--white-black);
+    color: var(--black-white);
+  }
+
+  #userList #container {
+    background-color: var(--white-black);
+    color: var(--black-white);
+    box-shadow: 11px 10px 7px -6px var(--shadow1);
+-webkit-box-shadow: 11px 10px 7px -6px var(--shadow1);
+-moz-box-shadow: 11px 10px 7px -6px var(--shadow1);
+  }

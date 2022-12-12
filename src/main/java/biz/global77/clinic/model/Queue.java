@@ -1,6 +1,7 @@
 package biz.global77.clinic.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,14 +35,17 @@ public class Queue {
     private String type; // appt/w.i
 
     @DateTimeFormat(iso = ISO.TIME)
-    private LocalDate startTime;
+    private LocalTime startTime;
 
     @DateTimeFormat(iso = ISO.TIME)
-    private LocalDate endTme;
+    private LocalTime endTme;
 
     private String totalTime;
 
     @OneToOne
     private User nurseID;
+
+    @OneToOne
+    private Appointment appointment;
 
 }

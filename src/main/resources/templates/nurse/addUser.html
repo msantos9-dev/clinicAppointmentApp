@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar::html-heading">
+
+    <body>
+
+        <div th:replace="navbar :: navigation-bar"></div>
+        <section class=" min-h-screen px-4 py-6 bg-gray-200 dark:bg-gray-900 min-w-full">
+
+            <header class="mt-2 px-4 py-2 rounded-sm space-x-4">
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="appointment">Appointment</a>
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="addUser">Register</a>
+                <!-- <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a> -->
+            </header>
+
+            <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
+                <div class="py-3 px-6 border-gray-300 flex justify-between space-x-12 lg:space-x-0">
+                    <span class="mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
+				    Register Patient
+			    </span>
+                </div>
+            </div>
+            <div aria-label="form" class="focus:outline-none mx-auto max-w-2xl max-h-4xl bg-white p-14 mt-10 mb-10">
+                <h1 role="heading" aria-label="profile information" class="focus:outline-none text-3xl font-bold text-gray-800 mt-4">Add User</h1>
+                <p class=" focus:outline-none text-sm font-light leading-tight text-gray-600 mt-4">Fill in the data for profile. It will take a couple of minutes.
+                    <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 mt-10">Personal data</h2>
+                    <p class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Everything about the patient</p>
+                    [[${createUser}]] Email - [[${emailExist}]]
+
+                    <!-- FORM -->
+                    <form class="mt-8 space-y-6" action="#" th:action="@{createUser}" method="post" th:object="${createUser}">
+
+                        <div class="mt-8 md:flex items-center">
+                            <div class="flex flex-col">
+                                <label class="mb-2 text-sm leading-none text-gray-800">Full Name</label>
+                                <input type="text" name="fullName" aria-label="Enter Full Name" th:field="*{fullName}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                                <span class="text-red-500 italic " th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+                            </div>
+                            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                                <label class="mb-1 text-sm leading-none text-gray-800">Address</label>
+                                <input type="text" name="address" aria-label="Enter Address" th:field="*{address}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                                <span class="text-red-500 italic " th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                            </div>
+                        </div>
+                        <div class="mt-6 md:flex items-center">
+                            <div class="flex flex-col">
+                                <label class="mb-2 text-sm leading-none text-gray-800">Phone Number</label>
+                                <input id="contactNumber" type="text" name="contactNumber" aria-label="Enter Contact Number" th:field="*{contactNumber}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                                <span class="text-red-500 italic " th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></span>
+                                <div class="text-red-500 italic " th:if="${phoneExist}">Phone number already in use</div>
+                            </div>
+                            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                                <label class="mb-1 text-sm leading-none text-gray-800">Valid ID Number</label>
+                                <input type="text" name="validIdNumber" aria-label="Enter Valid ID Number" th:field="*{validIdNumber}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                            </div>
+                        </div>
+                        <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 mt-10">Account information</h2>
+                        <p class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Email and account status</p>
+
+                        <div class="mt-6 md:flex items-center">
+                            <div class="flex flex-col">
+                                <label class="mb-2 text-sm leading-none text-gray-800">Email</label>
+                                <input id="email-address" type="email" name="email" aria-label="Enter Email Address" th:field="*{email}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                                <span class="text-red-500 italic " th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                <div class="text-red-500 italic " th:if="${emailExist}">Email already in use</div>
+                            </div>
+
+                        </div>
+                        <div class="mt-6 md:flex items-center">
+                            <div class="flex flex-col">
+                                <label class="mb-2 text-sm leading-none text-gray-800">Password</label>
+                                <input type="password" name="password" aria-label="Enter Contact Number" th:field="*{password}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                                <span class="text-red-500 italic " th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                            </div>
+                            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                                <label class="mb-1 text-sm leading-none text-gray-800">Confirm Password</label>
+                                <input type="password" name="confirmPassword" aria-label="Enter Valid ID Number" th:field="*{confirmPassword}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                                <span class="text-red-500 italic " th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="flex items-center justify-center space-x-4">
+                            <a onclick="history.go(-1)" class="text-gray-500 cursor-pointer bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg border border-gray-200 text-sm text-base px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                class="w-5 h-5 mx-2">
+                                <path fill-rule="evenodd"
+                                    d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Back
+                        </span>
+                            </a>
+
+                            <button type="submit" class="flex items-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 text-base rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        
+                        Register Patient
+                      </button>
+
+                        </div>
+
+                    </form>
+
+
+
+
+            </div>
+        </section>
+
+        <div th:replace="footer :: footer"></div>
+
+    </body>
+
+</html>

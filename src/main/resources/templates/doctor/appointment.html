@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar:: html-heading">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+    <div th:replace="navbar :: navigation-bar"></div>
+
+    <section class="min-h-screen px-4 py-6 bg-gray-200 dark:bg-gray-900">
+
+
+        <header class=" px-4 py-2 rounded-sm space-x-4">
+            <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
+            <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="history">History</a>
+
+        </header>
+        <div class="container mx-auto py-6 px-4 " x-data="datatables()" x-cloak>
+            <span class="cursor-default mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
+				Diagnosis
+			</span>
+        </div>
+
+
+        <main>
+            <form class="rounded-md bg-gray-300 dark:bg-gray-800 max-w-fit mx-auto" action="#" method="post" th:action="@{'/doctor/updateReport' + ${id}}" th:object="${appointment}">
+
+                <div class="rounded-md px-6 py-5 max-w-2xl mx-auto">
+                    <div class="border-b border-gray-200 dark:border-gray-600">
+                        <span class="leading-loose text-3xl uppercase text-green-700 dark:text-white font-semibold">
+                            Appointment Report
+                        </span>
+                    </div>
+
+                    <div class="mt-4 space-y-4">
+
+                        <section class="md:flex md:justify-between md:items-center space-y-4 md:space-y-0">
+                            <div>
+                                <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 dark:text-gray-200">
+                                    Patient Information
+                                </h2>
+                            </div>
+
+                            <div class="ml-auto">
+                                <a class="flex items-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg text-sm p-2 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" th:href="@{'history' + ${appointment.patientID.id}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                      <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                    </svg> &nbsp; View History</a>
+                            </div>
+
+                        </section>
+                        <!-- Patient info -->
+                        <section>
+                            <div class="grid grid-cols-7">
+                                <label disabled for="name" class="text-lx text-gray-800 my-auto dark:text-gray-200">Name:</label>
+                                <input disabled th:field="*{patientID.fullName}" id="name" class="col-span-6 w-full bg-gray-200 ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+
+
+                            </div>
+                            <div>
+                                <label hidden for="name" class="text-lx text-gray-800 dark:text-gray-200">Patient's Name:</label>
+                                <input hidden th:field="*{patientID.fullName}" id="name" class="w-full ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+                            <br>
+                            <div class="grid grid-cols-7">
+                                <label disabled for="id" class="text-lx text-gray-800 my-auto dark:text-gray-200">ID:</label>
+                                <input disabled th:field="*{patientID.id}" id="id" class="col-span-6 ml-2 outline-none bg-gray-200 py-1 px-2 text-md border-2 rounded-md w-full" />
+                            </div>
+                            <div>
+                                <label hidden for="id" class="text-lx ">Patient's ID:</label>
+                                <input hidden th:field="*{patientID.id}" id="id" class="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+                            <div>
+                                <label hidden for="doctorID" class="text-lx ">Doctor's ID:</label>
+                                <input hidden th:field="*{doctorID}" id="doctorID" class="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+
+                        </section>
+
+
+
+                        <!-- appointment info -->
+                        <section class="space-y-4">
+                            <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 dark:text-gray-200">Appointment Information</h2>
+
+                            <div class="grid grid-cols-7">
+                                <label disabled class="text-lx text-gray-800 my-auto dark:text-gray-200">Time:</label>
+                                <input disabled th:field="*{timeSlot}" id="timeSlot" class="col-span-6 ml-2 bg-gray-200 outline-none py-1 px-2 text-md border-2 rounded-md w-full" />
+                            </div>
+                            <div>
+                                <label hidden class="text-lx text-gray-800 dark:text-gray-200">Time:</label>
+                                <input hidden th:field="*{timeSlot}" id="timeSlot" class="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="remarks" class="text-lx text-gray-800 dark:text-gray-200">Remarks:</label>
+                                <textarea id="remarks" th:field="*{remarks}" cols="30" rows="3" class="w-full  p-4 text-gray-600 bg-gray-100 outline-none rounded-md"></textarea>
+                            </div>
+                        </section>
+
+                        <div class="grid gap-2
+                     md:grid-cols-3 md:gap-4">
+
+                            <div onclick="history.go(-1)" class="bg-white flex justify-center items-center hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg border border-gray-200 text-sm  hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 px-5 py-2.5
+                            dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600 
+                            cursor-pointer h-auto">
+                                <a class="text-gray-500 ">
+                                    <span class="flex  justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                class="w-5 h-5 mx-2">
+                                <path fill-rule="evenodd"
+                                    d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Back
+                        </span>
+                                </a>
+                            </div>
+
+                            <div class="flex justify-center items-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 text-base rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                <button type="submit" class="text-center flex justify-center items-center
+                                h-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                        </svg>
+                        &nbsp;
+                        Create Report
+                      </button>
+                            </div>
+
+                            <div class="bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                <a class="text-white  w-full h-auto" th:href="@{'certificate' + ${appointment.id}}">     
+                        Create Medical Certificate
+                      </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </main>
+
+
+
+
+    </section>
+    <div th:replace="footer :: footer"></div>
+
+
+</body>
+
+</html>
