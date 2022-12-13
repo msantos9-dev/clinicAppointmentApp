@@ -102,15 +102,20 @@ public class DoctorController {
 
 	@PostMapping("/updateReport{id}")
 	public String updateAppointment(
-			@PathVariable("id") int id,
+			@PathVariable("id") int id, Principal p,
 			@Valid Appointment appointment, Errors errors, BindingResult result, Model m) {
 
-		if (result.hasErrors()) {
-			appointment.setId(id);
-		}
+		String email = p.getName();
+		User user = userRepo.findByEmail(email);
+
+		// if (result.hasErrors()) {
+		// appointment.setId(id);
+		// }
 
 		// appointment.setHasArrived(true);
 		appointment.setStatus("checked");
+		appointment.setDoctorID(user);
+
 		appointmentRepo.save(appointment);
 
 		// m.addAttribute("listOfAppointments",

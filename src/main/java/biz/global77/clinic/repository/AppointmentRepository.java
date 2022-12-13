@@ -1,5 +1,6 @@
 package biz.global77.clinic.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
     public List<Appointment> findByHasArrivedAndPatientID(boolean has_arrived, User patientID);
 
     public List<Appointment> findByStatusAndPatientID(String status, User patientID);
+
+    public List<Appointment> findByStatusAndDate(String status, Date date);
 
     // public Appointment findByID(int id);
 

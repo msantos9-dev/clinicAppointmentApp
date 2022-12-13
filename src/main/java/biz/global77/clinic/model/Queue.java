@@ -48,4 +48,6 @@ public class Queue {
     @OneToOne
     private Appointment appointment;
 
+    private String status;
+
 }

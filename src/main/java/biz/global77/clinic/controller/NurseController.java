@@ -1,6 +1,10 @@
 package biz.global77.clinic.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -60,7 +64,8 @@ public class NurseController {
 
     @GetMapping(value = { "/", "/home" })
     public String home(ModelMap m, Principal p) {
-        m.addAttribute("queueList", queueRepo.findAll());
+        m.addAttribute("queueList", queueRepo.findByStatusOrderById("queue"));
+        m.addAttribute("checkIn", queueRepo.findByStatus("check"));
 
         return "nurse/home";
     }
@@ -68,7 +73,8 @@ public class NurseController {
     @GetMapping("/appointment")
     public String appointment(ModelMap m, Principal p) {
 
-        m.addAttribute("listOfAppointments", appointmentRepo.findByStatus("registered"));
+        Date date = new Date();
+        m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDate("pending", date));
 
         return "nurse/appointment";
     }
@@ -101,39 +107,86 @@ public class NurseController {
     }
 
     @GetMapping("/addUser")
-    public String registerUser(ModelMap m, Principal p) {
-
+    public String registerUser(Model model) {
+        User user = new User();
+        model.addAttribute("User", user);
         return "nurse/addUser";
     }
 
-    @PostMapping("/createUser")
-    public String createuser(@Valid User createUser,
-            Errors errors, Model model, BindingResult result) {
-
-        boolean emailExist = userService.checkEmail(createUser.getEmail());
-        long phoneExist = userService.getAllUser().stream()
-                .filter(i -> i.getContactNumber().equals(createUser.getContactNumber())).count();
+    @PostMapping("/saveUser")
+    public String saveUser(@Valid @ModelAttribute("User") User selectedUser,
+            Errors errors, Model model) {
+        // boolean emailExist = userService.checkEmail(selectedUser.getEmail());
+        // long phoneExist = userService.getAllUser().stream()
+        // .filter(i ->
+        // i.getContactNumber().equals(selectedUser.getContactNumber())).count();
         // System.out.println("Email exist:" + emailExist);
         // System.out.println("Phone exist:" + phoneExist);
-        if (null != errors && errors.getErrorCount() > 0) {
-            model.addAttribute("createUser", createUser);
-            return "nurse/addUser";
-        } else {
-            if (phoneExist > 0) {
-                model.addAttribute("phoneExist", "This phone is already registered");
-                model.addAttribute("createUser", createUser);
+        if (errors.hasErrors()) {
+            System.out.println("Role:" + selectedUser.getRole());
+            System.out.println("Password:" + selectedUser.getConfirmPassword());
+            System.out.println(selectedUser);
+            return "redirect:addUser";
+        } else
+            System.out.println("User:" + selectedUser);
+        userService.createUser(selectedUser);
+        return "redirect:/nurse/home";
+    }
 
-                return "nurse/addUser";
-            } else if (emailExist) {
-                model.addAttribute("emailExist", "This email is already registered");
-                model.addAttribute("createUser", createUser);
+    @GetMapping("/check{id}")
+    public String updateAppointment(
+            @PathVariable("id") int id, Principal p,
+            Model m) {
 
-                return "nurse/addUser";
-            }
-            userService.createUser(createUser);
-            return "redirect:/nurse/home";
-        }
+        Queue queue = queueRepo.findById(id).orElse(null);
 
+        queue.setStatus("check");
+
+        queueRepo.save(queue);
+
+        m.addAttribute("queueList", queueRepo.findByStatusOrderById("queue"));
+        m.addAttribute("checkIn", queueRepo.findByStatus("check"));
+
+        return "redirect:/nurse/home";
+
+    }
+
+    @GetMapping("/done{id}")
+    public String finishAppointment(
+            @PathVariable("id") int id, Principal p,
+            Model m) {
+
+        Queue queue = queueRepo.findById(id).orElse(null);
+
+        queue.setStatus("done");
+        queue.setEndTme(LocalTime.now());
+
+        queueRepo.save(queue);
+
+        m.addAttribute("queueList", queueRepo.findByStatusOrderById("queue"));
+        m.addAttribute("checkIn", queueRepo.findByStatus("check"));
+
+        return "redirect:/nurse/home";
+
+    }
+
+    @PostMapping("/processAppointment")
+    public String processAppointment(Appointment appointment,
+            @ModelAttribute("user") User user) {
+        User user2 = userRepo.findById(Integer.parseInt(appointment.getPatientsID())).orElse(null);
+
+        appointment.setPatientID(user2);
+        appointment.setStatus("pending");
+
+        appointmentRepo.save(appointment);
+        return "redirect:/nurse/appointment";
+    }
+
+    @GetMapping("/addAppointment")
+    public String setAppointment(Model model) {
+        Appointment appointment = new Appointment();
+        model.addAttribute("appointment", appointment);
+        return "nurse/addAppointment";
     }
 
 }

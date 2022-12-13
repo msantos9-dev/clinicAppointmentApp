@@ -24,8 +24,10 @@ public class QueueServiceImpl implements QueueService {
         // public Queue createQueue(Queue queue, Appointment appointment) {
 
         queue.setPatientID(appointment.getPatientID());
-        // queue.setNurseID(nurse);
+        queue.setNurseID(nurse);
         queue.setType("Appointment");
+        queue.setAppointment(appointment);
+        queue.setStatus("queue");
 
         queue.setStartTime(LocalTime.now());
 

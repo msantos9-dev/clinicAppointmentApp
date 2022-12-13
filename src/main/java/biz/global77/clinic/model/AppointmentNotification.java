@@ -25,14 +25,16 @@ import lombok.ToString;
 public class AppointmentNotification {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @OneToOne
     private User patientID;
-//appt/w.i
-    @DateTimeFormat(iso=ISO.DATE_TIME)
-	private LocalDate sendDate;
+
+
+    // appt/w.i
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    private LocalDate sendDate;
 
     private String details;
 

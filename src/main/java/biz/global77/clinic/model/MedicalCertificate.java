@@ -25,8 +25,8 @@ import lombok.ToString;
 public class MedicalCertificate {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @OneToOne
     private User patientID;
@@ -36,6 +36,6 @@ public class MedicalCertificate {
 
     private String reason;
 
-    private String date;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 }
