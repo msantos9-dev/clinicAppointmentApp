@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
 		user.setPassword(passwordEncode.encode(user.getPassword()));
 		user.setConfirmPassword(passwordEncode.encode(user.getConfirmPassword()));
-		user.setEnabled(false);
+		user.setEnabled(true);
 		user.setAccountNonLocked(true);
 		if (user.getRole() == null) {
 			user.setRole("ROLE_UNVERIFIED");
@@ -74,16 +74,23 @@ public class UserServiceImpl implements UserService {
 	// return userRepo.findByFullNameContaining(fullName);
 	// }
 
+	// @Override
+	// public Page<User> findWithSearch(String keyword) {
+	// // TODO Auto-generated method stub
+
+	// if (keyword != null && keyword != "") {
+	// keyword = keyword.toUpperCase();
+	// return userRepo.search(keyword);
+	// }
+
+	// return userRepo.findAllUser(keyword);
+	// }
+
 	@Override
-	public List<User> findWithSearch(String keyword) {
-		// TODO Auto-generated method stub
+	public Page<User> findAllUser(String keyword,
+			org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable pageable) {
 
-		if (keyword != null && keyword != "") {
-			keyword = keyword.toUpperCase();
-			return userRepo.search(keyword);
-		}
-
-		return userRepo.findAll();
+		return null;
 	}
 
 	@Override
@@ -99,13 +106,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+	public Page<User> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection) {
 		// TODO Auto-generated method stub
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
 				: Sort.by(sortField).descending();
 
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-		return this.userRepo.findAll(pageable);
+		return this.userRepo.search(keyword,pageable);
 	}
 
 	@Override

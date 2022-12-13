@@ -2,6 +2,7 @@ package biz.global77.clinic.service;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 
 import biz.global77.clinic.model.User;
@@ -18,10 +19,8 @@ public interface UserService {
 
 	List<User> getAllUser();
 
-	
-	Page<User> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+	Page<User> findAllUser(String keyword, Pageable pageable);
 
-	// List<User> findByFullNameContaining(String fullName);
-	List<User> findWithSearch(String keyword);
+	Page<User> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection);
 
 }

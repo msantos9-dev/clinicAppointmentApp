@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar:: html-heading">
+
+    <body>
+
+        <main class="mx-auto max-w-7xl min-h-screen" th:fragment="adminHome">
+
+            <!-- Replace with your content -->
+            <section class="w-full h-screen bg-[url('/images/bg.png')] relative">
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="absolute inset-0 w-full h-full z-20 bg-gradient-to-br from-emerald-600/50 to-emerald-100/40
+					grid place-items-center">
+                    <section class="w-[80%] h-[80%] items-center grid lg:grid-cols-2">
+                        <div>
+                            <span class="text-white font-semibold text-xl tracking-wide leading-4">
+							Need a medical consultation?
+						</span> <br>
+                            <span class="text-white text-lg">
+							Book an appointment
+						</span>
+                        </div>
+
+                        <div class="grid lg:grid-cols-2 gap-5">
+                            <div class="w-full max-w-sm h-max bg-white rounded-lg shadow-md">
+                                <!-- dark:bg-gray-800 dark:border-gray-700 -->
+                                <div class="h-40 lg:h-80 w-full px-5 flex justify-center items-center hover:bg-emerald-400/10 cursor-pointer">
+                                    <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+									Search for a Doctor
+								</span>
+                                </div>
+                            </div>
+
+                            <div class="w-full max-w-sm h-max bg-white rounded-lg shadow-md">
+                                <!-- dark:bg-gray-800 dark:border-gray-700 -->
+                                <div class="h-40 lg:h-80 w-full px-5 flex justify-center items-center hover:bg-emerald-400/10 cursor-pointer">
+                                    <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+									Book an Appointment
+								</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </section>
+                </div>
+                <!-- <div sec:authorize="hasRole('ROLE_ADMIN')" class="inset-0 w-full h-full z-20 bg-gradient-to-br from-emerald-600/50 to-emerald-100/40
+					grid place-items-center">
+                    <section class="w-[80%] h-[80%] items-center grid lg:grid-cols-2">
+                        <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
+                            <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                                <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 448 512"><path fill="#8DB48E" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></svg>
+                                        <dt class="mb-2 text-3xl text-emerald-500 font-extrabold">73M+</dt>
+                                        <dd class="font-light text-gray-600 dark:text-gray-400">Doctors</dd>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-12" viewBox="0 0 448 512"><path fill="#8DB48E" d="M96 128V70.2c0-13.3 8.3-25.3 20.8-30l96-36c7.2-2.7 15.2-2.7 22.5 0l96 36c12.5 4.7 20.8 16.6 20.8 30V128h-.3c.2 2.6 .3 5.3 .3 8v40c0 70.7-57.3 128-128 128s-128-57.3-128-128V136c0-2.7 .1-5.4 .3-8H96zm48 48c0 44.2 35.8 80 80 80s80-35.8 80-80V160H144v16zM129.1 323.2l83.2 88.4c6.3 6.7 17 6.7 23.3 0l83.2-88.4c73.7 14.9 129.1 80 129.1 158.1c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-78.1 55.5-143.2 129.1-158.1zM208 48V64H192c-4.4 0-8 3.6-8 8V88c0 4.4 3.6 8 8 8h16v16c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8V96h16c4.4 0 8-3.6 8-8V72c0-4.4-3.6-8-8-8H240V48c0-4.4-3.6-8-8-8H216c-4.4 0-8 3.6-8 8z"/></svg>
+                                        <dt class="mb-2 text-3xl text-emerald-500 font-extrabold">100M+</dt>
+                                        <dd class="font-light text-gray-600 dark:text-gray-400">Nurses</dd>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center">
+                                        <dt class="mb-2 text-3xl text-emerald-500 font-extrabold">1000s</dt>
+                                        <dd class="font-light text-gray-600 dark:text-gray-400">Patients</dd>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center">
+                                        <dt class="mb-2 text-3xl text-emerald-500 font-extrabold">1B+</dt>
+                                        <dd class="font-light text-gray-600 dark:text-gray-400">Appointments</dd>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center">
+                                        <dt class="mb-2 text-3xl text-emerald-500 font-extrabold">90+</dt>
+                                        <dd class="font-light text-gray-600 dark:text-gray-400">Top Forbes companies</dd>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center">
+                                        <dt class="mb-2 text-3xl text-emerald-500 font-extrabold">4M+</dt>
+                                        <dd class="font-light text-gray-600 dark:text-gray-400">Organizations</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                    </section>
+                    </div> -->
+            </section>
+
+
+
+            <section class="w-full space-y-20 px-4 lg:px-0 py-20">
+                <div class="text-center space-y-4">
+                    <span class="font-bold text-2xl tracking-wider leading-5 text-emerald-500">Popular Searches</span>
+
+                    <p class="text-gray-600 text-lg">
+                        Don't know where to start? Try to decide first what kind of doctor you need for your appointment or consultation. <br> Here are some popular searches you might want to check.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-4 gap-8 w-[80%] mx-auto lg:gap-0">
+                    <div class="w-full h-auto grid place-items-center gap-2">
+                        <img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Medical Doctor">
+                        <span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Medical Doctor
+					</span>
+                    </div>
+
+                    <div class="w-full h-auto grid place-items-center gap-2">
+                        <img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Dentist">
+                        <span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Dentist
+					</span>
+                    </div>
+
+                    <div class="w-full h-auto grid place-items-center gap-2">
+                        <img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Pediatrician">
+                        <span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Pediatrician
+					</span>
+                    </div>
+
+                    <div class="w-full h-auto grid place-items-center gap-2">
+                        <img class="h-16 lg:h-32 w-auto lg:block" th:src="@{/images/lclogo.png}" alt="Dermatologist">
+                        <span class="text-2xl text-emerald-500 tracking-wide font-semibold leading-8">
+						Dermatologist
+					</span>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Services  -->
+            <section class="bg-emerald-600/40 w-full space-y-20 py-20">
+                <div class="w-full px-4 lg:px-0 lg:w-[80%] mx-auto space-y-12">
+                    <span class="text-3xl tracking-wide text-white font-semibold uppercase"> Services </span>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-4">
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Skin
+							Lightening
+						</span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Acne
+							Treatment </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">Fat
+							Reduction </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Facial </span>
+                        </div>
+
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Nutritional
+							Support </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Pharmaceutical
+							Care </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Laboratory and
+							Occupational Care </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Nutritional
+							Support </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Teeth
+							Cleanings </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white"> Teeth
+							Whitening </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Extractions </span>
+                        </div>
+                        <div class="group h-40 lg:h-60 w-full px-5 text-center bg-white rounded-md  cursor-pointer grid place-items-center hover:bg-green-400/50 bg-clip backdrop-blur-xl">
+
+                            <span class="text-emerald-700 font-semibold tracking-wide text-xl group-hover:text-white">
+							Dentures </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- /End replace -->
+
+        </main>
+
+
+    </body>
+
+</html>

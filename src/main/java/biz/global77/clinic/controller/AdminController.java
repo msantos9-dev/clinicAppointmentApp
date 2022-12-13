@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,8 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,9 +68,8 @@ public class AdminController {
 
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
-		User user = new User();
-		model.addAttribute("User", user);
-		return "admin/addUser";
+		model.addAttribute("User", new User());
+		return "/admin/addUser";
 	}
 
 	/**
@@ -77,21 +79,9 @@ public class AdminController {
 
 	@GetMapping({ "listOfUser" })
 	public String viewUsers(Model model, @Param("keyword") String keyword) {
-
-		List<User> listUser = userService.findWithSearch(keyword).stream().sorted(Comparator.comparing(User::getId))
-				.collect(Collectors.toList());
-		model.addAttribute("listUser", listUser);
-		model.addAttribute("keyword", keyword);
-
-		// return "admin/dashboard";
-
-		return findPaginated(1, "id", "asc", model);
+		keyword = keyword != null ? keyword.toUpperCase() : "";
+		return findPaginated(1, "id", "asc", keyword, model);
 	}
-
-	// @GetMapping("{listOfUser}")
-	// public String viewHomePage(Model model) {
-	// return findPaginated(1, "id", "asc", model);
-	// }
 
 	@GetMapping("/updateUser/{id}")
 	public String editUser(@PathVariable(value = "id") int id, Model model) {
@@ -105,18 +95,18 @@ public class AdminController {
 
 	@PostMapping("/saveUser")
 	public String saveUser(@Valid @ModelAttribute("User") User selectedUser,
-			Errors errors, Model model) {
+			BindingResult bindingResult, Model model) {
 		// boolean emailExist = userService.checkEmail(selectedUser.getEmail());
 		// long phoneExist = userService.getAllUser().stream()
 		// .filter(i ->
 		// i.getContactNumber().equals(selectedUser.getContactNumber())).count();
 		// System.out.println("Email exist:" + emailExist);
 		// System.out.println("Phone exist:" + phoneExist);
-		if (errors.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("Role:" + selectedUser.getRole());
 			System.out.println("Password:" + selectedUser.getConfirmPassword());
 			System.out.println(selectedUser);
-			return "redirect:addUser";
+			return "admin/addUser";
 		} else
 			System.out.println("User:" + selectedUser);
 		userService.createUser(selectedUser);
@@ -139,19 +129,22 @@ public class AdminController {
 	 */
 	@GetMapping("page/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDir, Model model) {
+			@RequestParam("sortDir") String sortDir, @Param("keyword") String keyword, Model model) {
 		int pageSize = 10;
-
-		Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
-		List<User> listUser = page.getContent();
+		Page<User> pages = userService.findPaginated(keyword != null ? keyword.toUpperCase() : "", pageNo, pageSize,
+				sortField, sortDir);
+		List<User> listUser = pages.getContent();
+		keyword = keyword != null ? keyword.toLowerCase() : "";
 		model.addAttribute("currentPage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("totalPages", pages.getTotalPages());
+		model.addAttribute("totalItems", pages.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		model.addAttribute("listUser", listUser);
+		model.addAttribute("keyword", keyword);
+
 		return "admin/dashboard";
 	}
 

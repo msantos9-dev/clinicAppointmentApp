@@ -19,10 +19,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	public Optional<User> findById(Long id);
 
+	// For searching
 	@Query("select u from User u where upper(CONCAT(u.fullName,'',u.email,'',u.role))  LIKE %?1%")
-	public List<User> search(String keyword);
+	public Page<User> search(String keyword, Pageable pageable);
 
-	// added
 	public List<User> findByFullNameContaining(String fullName);
 
 	public Page<User> findByRole(boolean published, Pageable pageable);
@@ -30,5 +30,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	public Page<User> findByFullNameContaining(String fullName, Pageable pageable);
 
 	public List<User> findByFullNameContaining(String fullName, Sort sort);
-
 }
