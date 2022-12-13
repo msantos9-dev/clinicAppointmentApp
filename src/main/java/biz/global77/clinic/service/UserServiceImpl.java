@@ -40,10 +40,10 @@ public class UserServiceImpl implements UserService {
 
 		user.setPassword(passwordEncode.encode(user.getPassword()));
 		user.setConfirmPassword(passwordEncode.encode(user.getConfirmPassword()));
-		user.setEnabled(true);
+		user.setEnabled(false);
 		user.setAccountNonLocked(true);
 		if (user.getRole() == null) {
-			user.setRole("ROLE_USER");
+			user.setRole("ROLE_UNVERIFIED");
 		}
 		user.setRegistrationTime(dtf.format(now));
 
