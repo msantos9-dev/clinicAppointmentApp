@@ -10,7 +10,7 @@
 
             <header class="mt-2 px-4 py-2 rounded-sm space-x-4">
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
-                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="appointment">Appointment</a>
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="appointment">Appointments</a>
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addUser">Register</a>
                 <!-- <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a> -->
             </header>
@@ -55,7 +55,7 @@
                         <tbody>
                             <section th:if="${listOfAppointments.isEmpty()}">
                                 <td colspan="6" class="border-dashed border-t border-gray-200 text-center">
-                                    No appointments for today
+                                    No remaining appointments for today
                                 </td>
                             </section>
                             <tr th:each=" appointment: ${listOfAppointments} ">

@@ -106,6 +106,19 @@ public class NurseController {
         return "redirect:/nurse/appointment";
     }
 
+    @RequestMapping(value = "/cancelApptQueue{id}", method = RequestMethod.GET)
+    public String cancelApptQueue(@PathVariable("id") int id, @Valid Queue queue, Model m) {
+
+        Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
+        Queue queue2 = queueRepo.findByAppointment(appointment);
+        appointment.setStatus("cancelled");
+        appointmentRepo.save(appointment);
+        queue2.setStatus("cancel");
+        queueRepo.save(queue2);
+
+        return "redirect:/nurse/home";
+    }
+
     @GetMapping("/addUser")
     public String registerUser(Model model) {
         User user = new User();
@@ -172,8 +185,14 @@ public class NurseController {
 
     @PostMapping("/processAppointment")
     public String processAppointment(Appointment appointment,
-            @ModelAttribute("user") User user) {
+            @ModelAttribute("user") User user, Model model) {
         User user2 = userRepo.findById(Integer.parseInt(appointment.getPatientsID())).orElse(null);
+
+        if (user2 == null) {
+            model.addAttribute("appointment", appointment);
+            return "redirect:/nurse/addAppointment";
+
+        }
 
         appointment.setPatientID(user2);
         appointment.setStatus("pending");

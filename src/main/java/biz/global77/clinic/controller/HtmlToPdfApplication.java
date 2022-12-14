@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.apache.velocity.Template;
@@ -34,6 +36,7 @@ import biz.global77.clinic.model.Appointment;
 import biz.global77.clinic.model.MedicalCertificate;
 import biz.global77.clinic.repository.AppointmentRepository;
 import biz.global77.clinic.repository.MedicalCertificateRepository;
+import biz.global77.clinic.service.EmailSenderService;
 
 @Controller
 @RequestMapping("/doctor")
@@ -42,13 +45,16 @@ public class HtmlToPdfApplication {
     @Autowired
     private MedicalCertificateRepository certRepo;
 
+    @Autowired
+    private EmailSenderService emailSenderService;
+
     public static void main(String[] args) {
         SpringApplication.run(HtmlToPdfApplication.class, args);
     }
 
     @GetMapping("/genpdf/{fileName}")
     HttpEntity<byte[]> createPdf(
-            @PathVariable("fileName") String fileName) throws IOException {
+            @PathVariable("fileName") String fileName) throws IOException, MessagingException {
 
         MedicalCertificate cert = certRepo.findById(Integer.parseInt(fileName)).orElse(null);
 
@@ -89,6 +95,13 @@ public class HtmlToPdfApplication {
                         + "_" + cert.getId()
                         + ".pdf");
         header.setContentLength(baos.toByteArray().length);
+
+        // String email = cert.getPatientID().getEmail();
+        // String emailFile = cert.getPatientID().getFullName().replace(" ", "")
+        // + "_" + cert.getId()
+        // + ".pdf";
+        // emailSenderService.sendMailWithAttachment(email,
+        // "C:/Users/rarenilloadmin/Downloads/" + emailFile);
 
         return new HttpEntity<byte[]>(baos.toByteArray(), header);
 

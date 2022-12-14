@@ -1,13 +1,17 @@
 package biz.global77.clinic.controller;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,6 +31,7 @@ import biz.global77.clinic.repository.AppointmentRepository;
 import biz.global77.clinic.repository.MedicalCertificateRepository;
 import biz.global77.clinic.repository.UserRepository;
 import biz.global77.clinic.service.AppointmentService;
+import biz.global77.clinic.service.EmailSenderService;
 
 @Controller
 @RequestMapping("/doctor")
@@ -42,6 +47,9 @@ public class DoctorController {
 
 	@Autowired
 	private AppointmentService appointmentService;
+
+	@Autowired
+	private EmailSenderService emailSenderService;
 
 	@ModelAttribute
 	private void userDetails(Model m, Principal p) {
@@ -111,15 +119,13 @@ public class DoctorController {
 		// if (result.hasErrors()) {
 		// appointment.setId(id);
 		// }
+		Appointment updateAppt = appointmentRepo.findById(id).orElse(null);
+		updateAppt.setStatus("checked");
+		updateAppt.setDoctorID(user);
+		updateAppt.setDiagnosis(appointment.getDiagnosis());
 
-		// appointment.setHasArrived(true);
-		appointment.setStatus("checked");
-		appointment.setDoctorID(user);
+		appointmentRepo.save(updateAppt);
 
-		appointmentRepo.save(appointment);
-
-		// m.addAttribute("listOfAppointments",
-		// appointmentRepo.findByHasArrived(false));
 		m.addAttribute("listOfAppointments", appointmentRepo.findByStatus("queued"));
 
 		return "redirect:/doctor/home";
@@ -128,21 +134,56 @@ public class DoctorController {
 
 	@RequestMapping(value = "/downloadCert{id}", method = RequestMethod.GET)
 	public String downloadCert(@Valid MedicalCertificate medicalCertificate, @PathVariable("id") String id,
-			BindingResult result, Model m) {
+			BindingResult result, Model m) throws MessagingException {
 
-		// medCertRepo.save(medicalCertificate);
-		// m.addAttribute("cert", medicalCertificate);
-		// medCertRepo.findById(id).ifPresent(o -> m.addAttribute("cert", o));
-
-		// var id = medicalCertificate.getId();
+		// MedicalCertificate info =
+		// medCertRepo.findById(Integer.parseInt(id)).orElse(null);
+		// String email = info.getPatientID().getEmail();
+		// String fileName = info.getPatientID().getFullName().replace(" ", "")
+		// + "_" + info.getId()
+		// + ".pdf";
+		// emailSenderService.sendMailWithAttachment(email,
+		// "C:/Users/rarenilloadmin/Downloads/" + fileName);
 
 		return "redirect:/doctor/genpdf/" + id;
 
 	}
 
-	@RequestMapping(value = "/genCert", method = RequestMethod.POST)
-	public String generateCert(@Valid MedicalCertificate medicalCertificate, BindingResult result, Model m) {
+	@RequestMapping(value = "/sendToEmail{id}", method = RequestMethod.GET)
+	public ResponseEntity<Void> sendToEmail(@Valid MedicalCertificate medicalCertificate, @PathVariable("id") String id,
+			BindingResult result, Model m) throws MessagingException {
 
+		MedicalCertificate info = medCertRepo.findById(Integer.parseInt(id)).orElse(null);
+		String email = info.getPatientID().getEmail();
+		String fileName = info.getPatientID().getFullName().replace(" ", "")
+				+ "_" + info.getId()
+				+ ".pdf";
+		emailSenderService.sendMailWithAttachment(email,
+				"C:/Users/rarenilloadmin/Downloads/" + fileName);
+		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL d, YYYY");
+
+		// m.addAttribute("cert", medicalCertificate);
+
+		// m.addAttribute("id", info.getId());
+		// m.addAttribute("name", info.getPatientID().getFullName());
+		// m.addAttribute("address", info.getPatientID().getAddress());
+		// m.addAttribute("date", info.getDate());
+		// m.addAttribute("reason", info.getReason());
+		// m.addAttribute("doctor", info.getDoctorID().getFullName());
+		// m.addAttribute("genDateTime", LocalDateTime.now().format(formatter));
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+	}
+
+	@RequestMapping(value = "/genCert", method = RequestMethod.POST)
+	public String generateCert(@Valid MedicalCertificate medicalCertificate, BindingResult result, Principal p,
+			Model m) {
+
+		String email = p.getName();
+		User user = userRepo.findByEmail(email);
+
+		medicalCertificate.setDoctorID(user);
 		medCertRepo.save(medicalCertificate);
 		// m.addAttribute("cert", medicalCertificate);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL d, YYYY");

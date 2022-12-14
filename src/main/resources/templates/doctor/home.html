@@ -31,6 +31,8 @@
                             <th style="text-align: center">Patient ID</th>
                             <th style="text-align: center">Patient Name</th>
                             <th style="text-align: center">Time</th>
+                            <th style="text-align: center">Remarks</th>
+
                             <th style="text-align: center">Action</th>
 
                         </tr>
@@ -47,6 +49,9 @@
                                 </td>
                                 <td class="border-dashed border-t border-gray-200 id text-center">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${appointment.timeSlot}"></span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 id text-center">
+                                    <span class="text-gray-700 px-6 py-3 " th:text="${appointment.remarks}"></span>
                                 </td>
                                 <td class="border-dashed border-t border-gray-200 text-center">
 

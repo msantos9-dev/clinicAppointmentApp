@@ -36,6 +36,8 @@ public class Appointment {
 
     private String remarks;
 
+    private String diagnosis;
+
     private Date date;
 
     private String timeSlot;
