@@ -128,7 +128,7 @@ public class NurseController {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@Valid @ModelAttribute("User") User selectedUser,
+    public String saveUser(@Valid @ModelAttribute("User") User selectedUser, Appointment appointment,
             Errors errors, Model model) {
         // boolean emailExist = userService.checkEmail(selectedUser.getEmail());
         // long phoneExist = userService.getAllUser().stream()
@@ -136,6 +136,7 @@ public class NurseController {
         // i.getContactNumber().equals(selectedUser.getContactNumber())).count();
         // System.out.println("Email exist:" + emailExist);
         // System.out.println("Phone exist:" + phoneExist);
+
         if (errors.hasErrors()) {
             System.out.println("Role:" + selectedUser.getRole());
             System.out.println("Password:" + selectedUser.getConfirmPassword());
@@ -144,7 +145,13 @@ public class NurseController {
         } else
             System.out.println("User:" + selectedUser);
         userService.createUser(selectedUser);
-        return "redirect:/nurse/home";
+        // model.addAttribute("email", selectedUser.getEmail());
+        appointment.setPatientsEmail(selectedUser.getEmail());
+
+        model.addAttribute("appointment", appointment);
+
+        return "nurse/addAppointment";
+        // return "redirect:/nurse/home";
     }
 
     @GetMapping("/check{id}")
