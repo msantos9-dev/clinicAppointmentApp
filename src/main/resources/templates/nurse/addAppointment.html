@@ -20,13 +20,14 @@
                         Create Appointment
                     </span>
                 </div>
+                <!-- FORM -->
 
                 <form class="space-y-6" th:action="@{'/nurse/processAppointment'}" action="#" th:object="${appointment}" method="post">
                     <div class="mt-6 md:flex md:flex-col w-inherit items-center sm:items-start sm:space-y-6">
                         <!-- USER -->
                         <div class="flex flex-col w-full">
-                            <label class="mb-2 text-lg leading-none text-green-800 dark:text-white tracking-wide font-semibold">Patient's ID:</label>
-                            <input type="number" th:field="*{patientsID}" id="patientsID" aria-label="Search Patient" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium 
+                            <label class="mb-2 text-lg leading-none text-green-800 dark:text-white tracking-wide font-semibold">Patient's E-mail:</label>
+                            <input type="text" th:field="*{patientsEmail}" id="patientsEmail" aria-label="Search Patient" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium 
                                             leading-none text-green-800 p-3 border rounded border-green-200" />
                         </div>
 

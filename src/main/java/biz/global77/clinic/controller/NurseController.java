@@ -110,9 +110,10 @@ public class NurseController {
     public String cancelApptQueue(@PathVariable("id") int id, @Valid Queue queue, Model m) {
 
         Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
-        Queue queue2 = queueRepo.findByAppointment(appointment);
         appointment.setStatus("cancelled");
         appointmentRepo.save(appointment);
+
+        Queue queue2 = queueRepo.findByAppointment(appointment);
         queue2.setStatus("cancel");
         queueRepo.save(queue2);
 
@@ -186,7 +187,10 @@ public class NurseController {
     @PostMapping("/processAppointment")
     public String processAppointment(Appointment appointment,
             @ModelAttribute("user") User user, Model model) {
-        User user2 = userRepo.findById(Integer.parseInt(appointment.getPatientsID())).orElse(null);
+
+        // User user2 =
+        // userRepo.findById(Integer.parseInt(appointment.getPatientsID())).orElse(null);
+        User user2 = userRepo.findByEmail(appointment.getPatientsEmail());
 
         if (user2 == null) {
             model.addAttribute("appointment", appointment);

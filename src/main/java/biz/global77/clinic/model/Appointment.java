@@ -27,7 +27,7 @@ public class Appointment {
     @ManyToOne
     private User patientID;
 
-    private String patientsID;
+    private String patientsEmail;
 
     @ManyToOne
     private User doctorID;

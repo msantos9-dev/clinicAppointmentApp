@@ -70,6 +70,7 @@ public class HtmlToPdfApplication {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL d, YYYY");
 
         /* create a context and add data */
+        
         VelocityContext context = new VelocityContext();
         context.put("name", cert.getPatientID().getFullName());
         context.put("address", cert.getPatientID().getAddress());

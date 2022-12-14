@@ -25,7 +25,7 @@ public class QueueServiceImpl implements QueueService {
 
         queue.setPatientID(appointment.getPatientID());
         queue.setNurseID(nurse);
-        if (appointment.getPatientsID() != null) {
+        if (appointment.getPatientsEmail() != null) {
             queue.setType("Walk-In");
 
         } else {
