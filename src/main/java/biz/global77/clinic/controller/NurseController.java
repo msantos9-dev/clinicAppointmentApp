@@ -74,7 +74,7 @@ public class NurseController {
     public String appointment(ModelMap m, Principal p) {
 
         Date date = new Date();
-        m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDate("pending", date));
+        m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDate("Pending", date));
 
         return "nurse/appointment";
     }
@@ -87,7 +87,7 @@ public class NurseController {
         String email = p.getName();
         User user = userRepo.findByEmail(email);
 
-        appointment.setStatus("queued");
+        appointment.setStatus("Queued");
         appointmentRepo.save(appointment);
 
         queueService.createQueue(queue, appointment, user);
@@ -100,7 +100,7 @@ public class NurseController {
 
         Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        appointment.setStatus("cancelled");
+        appointment.setStatus("Cancelled");
         appointmentRepo.save(appointment);
 
         return "redirect:/nurse/appointment";
@@ -110,7 +110,7 @@ public class NurseController {
     public String cancelApptQueue(@PathVariable("id") int id, @Valid Queue queue, Model m) {
 
         Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
-        appointment.setStatus("cancelled");
+        appointment.setStatus("Cancelled");
         appointmentRepo.save(appointment);
 
         Queue queue2 = queueRepo.findByAppointment(appointment);
@@ -206,7 +206,7 @@ public class NurseController {
         }
 
         appointment.setPatientID(user2);
-        appointment.setStatus("pending");
+        appointment.setStatus("Pending");
 
         appointmentRepo.save(appointment);
         return "redirect:/nurse/appointment";

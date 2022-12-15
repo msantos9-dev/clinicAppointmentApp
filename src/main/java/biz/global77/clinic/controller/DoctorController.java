@@ -64,7 +64,7 @@ public class DoctorController {
 
 		// m.addAttribute("listOfAppointments",
 		// appointmentRepo.findByHasArrived(false));
-		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusOrderById("queued"));
+		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusOrderById("Queued"));
 
 		return "doctor/home";
 	}
@@ -72,7 +72,7 @@ public class DoctorController {
 	@GetMapping("/history")
 	public String history(ModelMap m, Principal p, @ModelAttribute("user") User user) {
 
-		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDoctorIDOrderById("checked", user));
+		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDoctorIDOrderById("Checked", user));
 
 		return "doctor/history";
 	}
@@ -85,7 +85,7 @@ public class DoctorController {
 		// appointmentRepo.findByHasArrivedAndPatientID(true, user));
 		m.addAttribute("check", "yes");
 
-		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndPatientID("checked", user));
+		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndPatientID("Checked", user));
 
 		return "doctor/history";
 	}
@@ -120,13 +120,13 @@ public class DoctorController {
 		// appointment.setId(id);
 		// }
 		Appointment updateAppt = appointmentRepo.findById(id).orElse(null);
-		updateAppt.setStatus("checked");
+		updateAppt.setStatus("Checked");
 		updateAppt.setDoctorID(user);
 		updateAppt.setDiagnosis(appointment.getDiagnosis());
 
 		appointmentRepo.save(updateAppt);
 
-		m.addAttribute("listOfAppointments", appointmentRepo.findByStatus("queued"));
+		m.addAttribute("listOfAppointments", appointmentRepo.findByStatus("Queued"));
 
 		return "redirect:/doctor/home";
 
