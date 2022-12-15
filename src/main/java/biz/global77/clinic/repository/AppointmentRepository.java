@@ -1,8 +1,10 @@
 package biz.global77.clinic.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import biz.global77.clinic.model.Appointment;
@@ -24,8 +26,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 
     public List<Appointment> findByStatusAndPatientID(String status, User patientID);
 
-    // public Appointment findByID(int id);
+    public List<Appointment> findByStatusAndDate(String status, Date date);
+
+    public Appointment findById(int id);
 
     public List<Appointment> findByPatientID(User id);
+
+    @Query("SELECT COUNT(a) FROM Appointment a")
+    public long appointments();
 
 }

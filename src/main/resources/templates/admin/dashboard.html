@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns: th="http://www.thymeleaf.org" 
-lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
 <head th:replace="navbar::html-heading">
-<body>
-	<style th:replace="admin/modal::modalStyle"></style>
-	<div th:replace="navbar :: navigation-bar"></div>
-	<div th:replace="admin/userList::userList"></div>
-	<div th:replace="admin/modal::modalFrame"></div>
-	<div th:replace="footer :: footer"></div>
-	<script th:replace="admin/modal::modal1Script"></script>
-</body>
+
+    <body>
+        <style th:replace="admin/modal::modalStyle"></style>
+        <div th:replace="navbar :: navigation-bar"></div>
+        <div th:replace="admin/userList::userList"></div>
+        <div th:replace="admin/modal::modalFrame"></div>
+        <div th:replace="footer :: footer"></div>
+        <script th:replace="admin/modal::modal1Script"></script>
+    </body>
+
 </html>

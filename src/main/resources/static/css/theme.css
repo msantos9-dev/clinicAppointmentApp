@@ -13,13 +13,12 @@
     --shadow1: rgba(68, 68, 68, 0.44);
   }
   
-  body {
+  /* body {
     background-color: var(--white-black);
-  }
-
+  } */
 
   /* User List */
-  #userList {
+  /* #userList {
     background-color: var(--tertiary-color);
     color: var(--black-white);
   }
@@ -35,4 +34,4 @@
     box-shadow: 11px 10px 7px -6px var(--shadow1);
 -webkit-box-shadow: 11px 10px 7px -6px var(--shadow1);
 -moz-box-shadow: 11px 10px 7px -6px var(--shadow1);
-  }
+  } */

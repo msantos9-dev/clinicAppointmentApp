@@ -10,7 +10,7 @@
 
             <header class="mt-2 px-4 py-2 rounded-sm space-x-4">
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
-                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="appointment">Appointment</a>
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 font-bold" href="appointment">Appointments</a>
                 <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addUser">Register</a>
                 <!-- <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="addAppointment">Walk-in</a> -->
             </header>
@@ -23,8 +23,7 @@
                     <span class="mb-2 text-3xl font-bold tracking-tight text-green-700 dark:text-white">
 				    Pending Appointments
 			    </span>
-
-                    <a href="set-appointment" class="my-auto">
+                    <a href="addAppointment" class="my-auto">
                         <button class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                 <span class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -48,7 +47,7 @@
                             <th style="text-align: center">Appointment No.</th>
                             <th style="text-align: center">Patient ID</th>
                             <th style="text-align: center">Patient Name</th>
-                            <th style="text-align: center">Doctor Name</th>
+                            <!-- <th style="text-align: center">Doctor Name</th> -->
                             <th style="text-align: center">Time</th>
                             <th style="text-align: center">Action</th>
 
@@ -56,7 +55,7 @@
                         <tbody>
                             <section th:if="${listOfAppointments.isEmpty()}">
                                 <td colspan="6" class="border-dashed border-t border-gray-200 text-center">
-                                    No appointments for today
+                                    No remaining appointments for today
                                 </td>
                             </section>
                             <tr th:each=" appointment: ${listOfAppointments} ">
@@ -69,9 +68,9 @@
                                 <td class="border-dashed border-t border-gray-200 text-center ">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${appointment.patientID.fullName} "></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 text-center ">
+                                <!-- <td class="border-dashed border-t border-gray-200 text-center ">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${appointment.doctorID.fullName} "></span>
-                                </td>
+                                </td> -->
                                 <td class="border-dashed border-t border-gray-200 text-center ">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${appointment.timeSlot} "></span>
                                 </td>

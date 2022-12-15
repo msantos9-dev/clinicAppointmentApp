@@ -1,6 +1,10 @@
 package biz.global77.clinic.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -60,7 +64,8 @@ public class NurseController {
 
     @GetMapping(value = { "/", "/home" })
     public String home(ModelMap m, Principal p) {
-        m.addAttribute("queueList", queueRepo.findAll());
+        m.addAttribute("queueList", queueRepo.findByStatusOrderById("queue"));
+        m.addAttribute("checkIn", queueRepo.findByStatus("check"));
 
         return "nurse/home";
     }
@@ -68,7 +73,8 @@ public class NurseController {
     @GetMapping("/appointment")
     public String appointment(ModelMap m, Principal p) {
 
-        m.addAttribute("listOfAppointments", appointmentRepo.findByStatus("registered"));
+        Date date = new Date();
+        m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDate("Pending", date));
 
         return "nurse/appointment";
     }
@@ -76,12 +82,12 @@ public class NurseController {
     @RequestMapping(value = "/addToQueue{id}", method = RequestMethod.GET)
     public String addQueue(@PathVariable("id") int id, @Valid Queue queue, Model m, Principal p) {
 
-        Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
+        Appointment appointment = appointmentRepo.findById(id);
 
         String email = p.getName();
         User user = userRepo.findByEmail(email);
 
-        appointment.setStatus("queued");
+        appointment.setStatus("Queued");
         appointmentRepo.save(appointment);
 
         queueService.createQueue(queue, appointment, user);
@@ -92,48 +98,125 @@ public class NurseController {
     @RequestMapping(value = "/cancelAppt{id}", method = RequestMethod.GET)
     public String cancelAppt(@PathVariable("id") int id, @Valid Queue queue, Model m) {
 
-        Appointment appointment = appointmentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
+        Appointment appointment = appointmentRepo.findById(id);
 
-        appointment.setStatus("cancelled");
+        appointment.setStatus("Cancelled");
         appointmentRepo.save(appointment);
 
         return "redirect:/nurse/appointment";
     }
 
-    @GetMapping("/addUser")
-    public String registerUser(ModelMap m, Principal p) {
+    @RequestMapping(value = "/cancelApptQueue{id}", method = RequestMethod.GET)
+    public String cancelApptQueue(@PathVariable("id") int id, @Valid Queue queue, Model m) {
 
+        Appointment appointment = appointmentRepo.findById(id);
+        appointment.setStatus("Cancelled");
+        appointmentRepo.save(appointment);
+
+        Queue queue2 = queueRepo.findByAppointment(appointment);
+        queue2.setStatus("cancel");
+        queueRepo.save(queue2);
+
+        return "redirect:/nurse/home";
+    }
+
+    @GetMapping("/addUser")
+    public String registerUser(Model model) {
+        User user = new User();
+        model.addAttribute("User", user);
         return "nurse/addUser";
     }
 
-    @PostMapping("/createUser")
-    public String createuser(@Valid User createUser,
-            Errors errors, Model model, BindingResult result) {
-
-        boolean emailExist = userService.checkEmail(createUser.getEmail());
-        long phoneExist = userService.getAllUser().stream()
-                .filter(i -> i.getContactNumber().equals(createUser.getContactNumber())).count();
+    @PostMapping("/saveUser")
+    public String saveUser(@Valid @ModelAttribute("User") User selectedUser, Appointment appointment,
+            Errors errors, Model model) {
+        // boolean emailExist = userService.checkEmail(selectedUser.getEmail());
+        // long phoneExist = userService.getAllUser().stream()
+        // .filter(i ->
+        // i.getContactNumber().equals(selectedUser.getContactNumber())).count();
         // System.out.println("Email exist:" + emailExist);
         // System.out.println("Phone exist:" + phoneExist);
-        if (null != errors && errors.getErrorCount() > 0) {
-            model.addAttribute("createUser", createUser);
-            return "nurse/addUser";
-        } else {
-            if (phoneExist > 0) {
-                model.addAttribute("phoneExist", "This phone is already registered");
-                model.addAttribute("createUser", createUser);
 
-                return "nurse/addUser";
-            } else if (emailExist) {
-                model.addAttribute("emailExist", "This email is already registered");
-                model.addAttribute("createUser", createUser);
+        if (errors.hasErrors()) {
+            System.out.println("Role:" + selectedUser.getRole());
+            System.out.println("Password:" + selectedUser.getConfirmPassword());
+            System.out.println(selectedUser);
+            return "redirect:addUser";
+        } else
+            System.out.println("User:" + selectedUser);
+        userService.createUser(selectedUser);
+        // model.addAttribute("email", selectedUser.getEmail());
+        appointment.setPatientsEmail(selectedUser.getEmail());
 
-                return "nurse/addUser";
-            }
-            userService.createUser(createUser);
-            return "redirect:/nurse/home";
+        model.addAttribute("appointment", appointment);
+
+        return "nurse/addAppointment";
+        // return "redirect:/nurse/home";
+    }
+
+    @GetMapping("/check{id}")
+    public String updateAppointment(
+            @PathVariable("id") int id, Principal p,
+            Model m) {
+
+        Queue queue = queueRepo.findById(id).orElse(null);
+
+        queue.setStatus("check");
+
+        queueRepo.save(queue);
+
+        m.addAttribute("queueList", queueRepo.findByStatusOrderById("queue"));
+        m.addAttribute("checkIn", queueRepo.findByStatus("check"));
+
+        return "redirect:/nurse/home";
+
+    }
+
+    @GetMapping("/done{id}")
+    public String finishAppointment(
+            @PathVariable("id") int id, Principal p,
+            Model m) {
+
+        Queue queue = queueRepo.findById(id).orElse(null);
+
+        queue.setStatus("done");
+        queue.setEndTme(LocalTime.now());
+
+        queueRepo.save(queue);
+
+        m.addAttribute("queueList", queueRepo.findByStatusOrderById("queue"));
+        m.addAttribute("checkIn", queueRepo.findByStatus("check"));
+
+        return "redirect:/nurse/home";
+
+    }
+
+    @PostMapping("/processAppointment")
+    public String processAppointment(Appointment appointment,
+            @ModelAttribute("user") User user, Model model) {
+
+        // User user2 =
+        // userRepo.findById(Integer.parseInt(appointment.getPatientsID())).orElse(null);
+        User user2 = userRepo.findByEmail(appointment.getPatientsEmail());
+
+        if (user2 == null) {
+            model.addAttribute("appointment", appointment);
+            return "redirect:/nurse/addAppointment";
+
         }
 
+        appointment.setPatientID(user2);
+        appointment.setStatus("Pending");
+
+        appointmentRepo.save(appointment);
+        return "redirect:/nurse/appointment";
+    }
+
+    @GetMapping("/addAppointment")
+    public String setAppointment(Model model) {
+        Appointment appointment = new Appointment();
+        model.addAttribute("appointment", appointment);
+        return "nurse/addAppointment";
     }
 
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar:: html-heading">
+
+    <body>
+        <div th:replace="navbar :: navigation-bar"></div>
+
+
+        <main class="bg-gray-100 dark:bg-gray-800 min-h-screen">
+            <div class="container mx-auto w-[90%] py-6 px-4" x-data="datatables()" x-cloak>
+                <span class="cursor-default mb-2 text-3xl font-semibold tracking-tight text-green-700 dark:text-white">
+                Profile
+            </span>
+            </div>
+
+            <div class="mx-auto max-w-5xl sm:p-6 lg:px-8">
+                <!-- Replace with your content -->
+                <div class="grid lg:grid-cols-5 bg-white dark:bg-gray-700 rounded-xl">
+                    <div class="lg:col-span-2 bg-green-600 rounded-t-lg lg:rounded-t-none lg:rounded-l-lg grid place-items-center py-12 lg:py-6">
+                        <div class="bg-green-500 w-40 h-40 rounded-full grid place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-40 h-40 text-green-900">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+
+                        </div>
+                        <span class="text-4xl font-semibold text-white tracking-wide">
+                        [[${selectedUser.fullName}]]
+                    </span>
+                    </div>
+
+                    <div class="lg:col-span-3 rounded-b-lg lg:rounded-bl-none lg:rounded-r-xl bg-white dark:bg-gray-700 p-16 flex justify-center">
+                        <div class="h-auto w-full text-gray-800 dark:text-gray-200 grid place-items-center lg:px-8">
+                            <div class="space-y-2 w-full h-full">
+                                <div class="grid grid-cols-3 gap-5">
+                                    <div class="lg:tracking-wide flex justify-end">
+                                        Contact No:
+                                    </div>
+                                    <div class="col-span-2 gap-5 font-semibold">
+                                        [[${selectedUser.contactNumber}]]
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-5">
+                                    <div class="lg:tracking-wide flex justify-end">Address:</div>
+                                    <div class="col-span-2 font-semibold">
+                                        [[${selectedUser.address}]]
+                                    </div>
+
+                                </div>
+                                <div class="grid grid-cols-3 gap-5">
+                                    <div class=" lg:tracking-wide flex justify-end">Email:</div>
+                                    <div class="col-span-2 font-semibold">
+                                        [[${selectedUser.email}]]
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-5">
+                                    <div class="lg:tracking-wide flex justify-end">Valid ID:</div>
+                                    <div class="col-span-2 font-semibold">
+                                        [[${selectedUser.validIdNumber}]]
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-5">
+                                    <div class="lg:tracking-wide flex justify-end">Joined :</div>
+                                    <div class="col-span-2 font-semibold">
+                                        [[${selectedUser.registrationTime.toString().substring(0,4)}]]
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /End replace -->
+            </div>
+        </main>
+
+
+        <div th:replace="footer :: footer"></div>
+    </body>
+
+</html>

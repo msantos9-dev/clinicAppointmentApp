@@ -31,10 +31,17 @@
                             <th style="text-align: center">Patient ID</th>
                             <th style="text-align: center">Patient Name</th>
                             <th style="text-align: center">Time</th>
+                            <th style="text-align: center">Remarks</th>
+
                             <th style="text-align: center">Action</th>
 
                         </tr>
                         <tbody>
+                            <section th:if="${listOfAppointments.isEmpty()} ">
+                                <td colspan="6 " class="border-dashed border-t border-gray-200 text-center ">
+                                    No remaining appointments for today
+                                </td>
+                            </section>
                             <tr th:each="appointment: ${listOfAppointments}">
                                 <td class="border-dashed border-t border-gray-200 text-center">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${appointment.id}"></span>
@@ -47,6 +54,9 @@
                                 </td>
                                 <td class="border-dashed border-t border-gray-200 id text-center">
                                     <span class="text-gray-700 px-6 py-3 " th:text="${appointment.timeSlot}"></span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 id text-center">
+                                    <span class="text-gray-700 px-6 py-3 " th:text="${appointment.remarks}"></span>
                                 </td>
                                 <td class="border-dashed border-t border-gray-200 text-center">
 

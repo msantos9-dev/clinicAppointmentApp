@@ -27,12 +27,16 @@ public class Appointment {
     @ManyToOne
     private User patientID;
 
+    private String patientsEmail;
+
     @ManyToOne
     private User doctorID;
 
     private boolean hasArrived;
 
     private String remarks;
+
+    private String diagnosis;
 
     private Date date;
 

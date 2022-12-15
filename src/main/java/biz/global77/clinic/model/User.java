@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 // import biz.global77.clinic.config.passwordValidation.annotations.PasswordValueMatch;
@@ -59,13 +60,14 @@ public class User {
 
 	private boolean isAccountNonLocked;
 	// @ValidPassword
+
 	@NotNull
-	@NotBlank(message = "New password is mandatory")
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$", message = "Password must be have minimum of 8 characters and must contain at least 1 uppercase, 1 lowercase, 1 special character and 1 digit.")
 	private String password;
 
 	// @ValidPassword
 	@NotNull
-	@NotBlank(message = "Confirm Password is mandatory")
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$", message = "Password must be have minimum of 8 characters and must contain at least 1 uppercase, 1 lowercase, 1 special character and 1 digit.")
 	private String confirmPassword;
 
 	private String role;

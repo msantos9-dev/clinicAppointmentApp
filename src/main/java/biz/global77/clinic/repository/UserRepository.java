@@ -23,6 +23,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select u from User u where upper(CONCAT(u.fullName,'',u.email,'',u.role))  LIKE %?1%")
 	public Page<User> search(String keyword, Pageable pageable);
 
+	@Query("SELECT COUNT(u) FROM User u WHERE u.role LIKE %?1%")
+	public long users(String identifier);
+
 	public List<User> findByFullNameContaining(String fullName);
 
 	public Page<User> findByRole(boolean published, Pageable pageable);

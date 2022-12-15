@@ -30,7 +30,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 		} else if (roles.contains("ROLE_USER")) {
 			response.sendRedirect("/user/");
 		} else if (roles.contains("ROLE_UNVERIFIED")) {
-			response.sendRedirect("/verifyAccount");
+			response.sendRedirect("/unverifiedAccount");
 		} else {
 			response.sendRedirect("error");
 		}

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns: th="http://www.thymeleaf.org" 
-lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
 <head th:replace="navbar:: html-heading">
-<body>
-	
-		<div th:replace="navbar :: navigation-bar"></div>
-		<div th:replace="mainHomePage :: mainHome"></div>
-		  <div th:replace="footer :: footer"></div>
-</body>
+
+    <body>
+
+        <div th:replace="navbar :: navigation-bar"></div>
+        <div th:replace="admin/dashboardAdmin :: adminHome"></div>
+        <div th:replace="footer :: footer"></div>
+    </body>
+
 </html>

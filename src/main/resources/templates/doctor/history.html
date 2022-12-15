@@ -70,12 +70,15 @@
                 <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                     <tr class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs rounded-t-sm">
                         <th class="text-center py-2">Appt. No.</th>
+                        <th class="text-center py-2">Appt. Date</th>
+
                         <th class="text-center py-2">Patient ID</th>
+
                         <th class="text-center py-2">Patient Name</th>
                         <span th:if="${check != null}">
                             <th class="text-center py-2">Doctor Name</th>
                         </span>
-                        <th class="text-center py-2">Remarks</th>
+                        <th class="text-center py-2">Diagnosis</th>
 
                     </tr>
 
@@ -83,6 +86,9 @@
                         <tr th:each="appointment: ${listOfAppointments}">
                             <td class="border-dashed border-t border-gray-200 text-center">
                                 <span class="text-gray-700 px-6 py-3 " th:text="${appointment.id}"></span>
+                            </td>
+                            <td class="border-dashed border-t border-gray-200 text-center">
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.date}"></span>
                             </td>
                             <td class="border-dashed border-t border-gray-200 text-center">
                                 <span class="text-gray-700 px-6 py-3 " th:text="${appointment.patientID.id}"></span>
@@ -98,7 +104,7 @@
                             </span>
 
                             <td class="border-dashed border-t border-gray-200 text-center">
-                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.remarks}"></span>
+                                <span class="text-gray-700 px-6 py-3 " th:text="${appointment.diagnosis}"></span>
                             </td>
 
                         </tr>

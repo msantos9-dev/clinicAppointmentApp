@@ -1,111 +1,102 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns: th="http://www.thymeleaf.org" 
-lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
 <head th:replace="navbar::html-heading">
-<body>
-	
-	<div th:replace="navbar :: navigation-bar"></div>
-	
-    <div aria-label="form" class="focus:outline-none mx-auto max-w-2xl max-h-4xl bg-white p-14 mt-10 mb-10">
-        <h1 role="heading" aria-label="profile information" class="focus:outline-none text-3xl font-bold text-gray-800 mt-4">Edit User</h1>
-        <p    class=" focus:outline-none text-sm font-light leading-tight text-gray-600 mt-4">Fill in the data for profile. It will take a couple of minutes. 
-        <h2  class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 mt-10">Personal data</h2>
-        <p class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Everything about the user</p>
-        <form class="mt-8 space-y-6" action="#" th:action="@{/admin/saveUpdate}" method="post" th:object="${selectedUser}">
-            <input type="text" aria-label="id" th:field="*{id}" defaultvalue="*{id}" hidden
-            class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+
+    <body>
+
+        <div th:replace="navbar :: navigation-bar"></div>
+
+        <div aria-label="form" class="focus:outline-none mx-auto max-w-2xl max-h-4xl bg-white p-14 mt-10 mb-10">
+            <h1 role="heading" aria-label="profile information" class="focus:outline-none text-3xl font-bold text-gray-800 mt-4">Edit User</h1>
+            <p class=" focus:outline-none text-sm font-light leading-tight text-gray-600 mt-4">Fill in the data for profile. It will take a couple of minutes.
+                <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 mt-10">Personal data</h2>
+                <p class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Everything about the user</p>
+                <form class="mt-8 space-y-6" action="#" th:action="@{/admin/saveUpdate}" method="post" th:object="${selectedUser}">
+                    <input type="text" aria-label="id" th:field="*{id}" defaultvalue="*{id}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
             leading-none text-gray-800 p-3 border rounded border-gray-200" />
 
-            <input type="text" aria-label="password" th:field="*{password}" hidden
-            class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                    <input type="text" aria-label="password" th:field="*{password}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
             leading-none text-gray-800 p-3 border rounded border-gray-200" />
 
-            <input type="text" aria-label="confirmPasswor" th:field="*{confirmPassword}" hidden
-            class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                    <input type="text" aria-label="confirmPasswor" th:field="*{confirmPassword}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
             leading-none text-gray-800 p-3 border rounded border-gray-200" />
 
-            <input type="text" aria-label="time" th:field="*{registrationTime}"  hidden
-            class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                    <input type="text" aria-label="time" th:field="*{registrationTime}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
             leading-none text-gray-800 p-3 border rounded border-gray-200" />
 
-        <div class="mt-8 md:flex items-center">
-            <div class="flex flex-col">
-                <label class="mb-2 text-sm leading-none text-gray-800">Full Name</label>
-                <input type="text" aria-label="Enter Full Name" th:field="*{fullName}"  readonly="true"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                    <!-- Name address -->
+                    <div class="mt-8 md:flex items-center">
+                        <div class="flex flex-col">
+                            <label class="mb-2 text-sm leading-none text-gray-800">Full Name</label>
+                            <input type="text" aria-label="Enter Full Name" th:field="*{fullName}" readonly="true" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
                 leading-none text-gray-800 p-3 border rounded border-gray-200" />
-            </div>
-            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
-                <label class="mb-1 text-sm leading-none text-gray-800">Address</label>
-                <input type="text" aria-label="Enter Address" defaultvalue="*{address}" th:field="*{address}" readonly="true"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
-                leading-none text-gray-800 p-3 border rounded border-gray-200"  />
-            </div>
-        </div>
-        <div class="mt-6 md:flex items-center">
-            <div class="flex flex-col">
-                <label class="mb-2 text-sm leading-none text-gray-800">Phone Number</label>
-                <input type="number" aria-label="Enter Contact Number" value="*{contactNumber}" th:field="*{contactNumber}" readonly="true"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                        </div>
+                        <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                            <label class="mb-1 text-sm leading-none text-gray-800">Address</label>
+                            <input type="text" aria-label="Enter Address" defaultvalue="*{address}" th:field="*{address}" readonly="true" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
                 leading-none text-gray-800 p-3 border rounded border-gray-200" />
-            </div>
-            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
-                <label class="mb-1 text-sm leading-none text-gray-800">Valid ID Number</label>
-                <input type="text" aria-label="Enter Valid ID Number" value="{validIdNumber}" th:field="*{validIdNumber}" readonly="true"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
-                leading-none text-gray-800 p-3 border rounded border-gray-200"  />
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-        <h2  class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 mt-10">Account information</h2>
-        <p class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Email and account status</p>
-       
-        <div class="mt-6 md:flex items-center">
-            <div class="flex flex-col">
-                <label class="mb-2 text-sm leading-none text-gray-800">Email</label>
-                <input type="email" aria-label="Enter Email Address" th:field="*{email}" readonly="true"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+
+                    <!-- phone number saka valid id -->
+                    <div class="mt-6 md:flex items-center">
+                        <div class="flex flex-col">
+                            <label class="mb-2 text-sm leading-none text-gray-800">Phone Number</label>
+                            <input type="number" aria-label="Enter Contact Number" value="*{contactNumber}" th:field="*{contactNumber}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
                 leading-none text-gray-800 p-3 border rounded border-gray-200" />
-            </div>
-            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
-                <label class="mb-1 text-sm leading-none text-gray-800">Role</label>
-                <select id="role" aria-label="Account Locked" th:field="*{role}"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-100 text-sm font-medium 
+                        </div>
+                        <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                            <label class="mb-1 text-sm leading-none text-gray-800">Valid ID Number</label>
+                            <input type="text" aria-label="Enter Valid ID Number" value="{validIdNumber}" th:field="*{validIdNumber}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                        </div>
+                    </div>
+                    <!--  -->
+
+                    <h2 class="focus:outline-none text-xl font-semibold leading-7 text-gray-800 mt-10">Account information</h2>
+                    <p class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Email and account status</p>
+
+                    <div class="mt-6 md:flex items-center">
+                        <div class="flex flex-col">
+                            <label class="mb-2 text-sm leading-none text-gray-800">Email</label>
+                            <input type="email" aria-label="Enter Email Address" th:field="*{email}" readonly="true" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-300 text-sm font-medium 
+                leading-none text-gray-800 p-3 border rounded border-gray-200" />
+                        </div>
+                        <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                            <label class="mb-1 text-sm leading-none text-gray-800">Role</label>
+                            <select id="role" aria-label="Account Locked" th:field="*{role}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-100 text-sm font-medium 
                 leading-none text-gray-800 p-3 border rounded border-gray-200">
                 <option value="ROLE_ADMIN">ADMIN</option>
                 <option  value="ROLE_DOCTOR">DOCTOR</option>
                 <option value="ROLE_NURSE">NURSE</option>
                 <option  value="ROLE_USER">PATIENT</option>
                 </select>
-            </div>
-        </div>
-        <div class="mt-6 md:flex items-center">
-            <div class="flex flex-col">
-                <label class="mb-2 text-sm leading-none text-gray-800">Account Locked?</label>
-                <select aria-label="Account Locked" th:field="*{AccountNonLocked}"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-100 text-sm font-medium 
+                        </div>
+                    </div>
+                    <div class="mt-6 md:flex items-center">
+                        <div class="flex flex-col">
+                            <label class="mb-2 text-sm leading-none text-gray-800">Account Locked?</label>
+                            <select aria-label="Account Locked" th:field="*{AccountNonLocked}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-100 text-sm font-medium 
                 leading-none text-gray-800 p-3 border rounded border-gray-200">
                 <option  value="1">True</option>
                 <option  value="0">False</option>
                 </select>
-            </div>
-            <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
-                <label class="mb-1 text-sm leading-none text-gray-800">Enabled?</label>
-                <select aria-label="Account Locked" th:field="*{Enabled}"
-                class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-100 text-sm font-medium 
+                        </div>
+                        <div class="flex flex-col md:ml-12 md:mt-0 mt-8">
+                            <label class="mb-1 text-sm leading-none text-gray-800">Enabled?</label>
+                            <select aria-label="Account Locked" th:field="*{Enabled}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64 bg-gray-100 text-sm font-medium 
                 leading-none text-gray-800 p-3 border rounded border-gray-200">
                 <option value="1">True</option>
                 <option  value="0">False</option>
                 </select>
-            </div>
-        </div>
-        
-                        <div class="flex items-center justify-center">
-                            <a onclick="history.go(-1)" 
-                            class="mr-1 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border rounded border-gray-400 mt-7 md:mt-14 hover:bg-gray-100  focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            class="w-5 h-5 mx-2">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                        <a onclick="history.go(-1)" class="mr-1 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border rounded border-gray-400 mt-7 md:mt-14 hover:bg-gray-100  focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mx-2">
                             <path fill-rule="evenodd"
                                 d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
                                 clip-rule="evenodd" />
@@ -135,10 +126,11 @@ lang="en">
 
                     </div>
 
-    </form>
-    </div>
+                </form>
+        </div>
 
-	<div th:replace="footer :: footer"></div>
+        <div th:replace="footer :: footer"></div>
 
-</body>
+    </body>
+
 </html>

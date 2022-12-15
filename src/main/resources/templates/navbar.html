@@ -84,7 +84,7 @@
               </svg>
               <span class="hidden md:block" sec:authorize="hasRole('ROLE_DOCTOR')"> DR. </span>
               <span class="hidden md:block" sec:authorize="hasRole('ROLE_NURSE')"> NURSE: </span>
-              <span class="hidden md:block" th:text="${user.fullName}"></span>
+              <span class="hidden md:block ml-2" th:text="${user.fullName}"></span>
             </button>
 
             <!-- Profile dropdown -->

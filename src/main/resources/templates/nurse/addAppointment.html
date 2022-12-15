@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="navbar::html-heading">
+
+    <body>
+
+        <div th:replace="navbar :: navigation-bar"></div>
+        <section class=" min-h-screen px-4 py-6 bg-gray-200 dark:bg-gray-900 min-w-full">
+
+            <header class="mt-2 px-4 py-2 rounded-sm space-x-4">
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="home">Home</a>
+                <a class="nav-link  font-bold text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400" href="appointment">Appointments</a>
+                <a class="nav-link text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 " href="addUser">Register</a>
+            </header>
+
+            <div aria-label="form" class="focus:outline-none mx-auto bg-white rounded-lg shadow dark:bg-gray-700 lg:max-w-2xl p-14">
+                <div class="px-6 text-center border-b border-green-700 dark:border-white">
+                    <span class="leading-loose text-3xl uppercase text-green-700 dark:text-white font-semibold">
+                        Create Appointment
+                    </span>
+                </div>
+                <!-- FORM -->
+
+                <form class="space-y-6" th:action="@{'/nurse/processAppointment'}" action="#" th:object="${appointment}" method="post">
+                    <div class="mt-6 md:flex md:flex-col w-inherit items-center sm:items-start sm:space-y-6">
+                        <!-- USER -->
+                        <div class="flex flex-col w-full">
+                            <label class="mb-2 text-lg leading-none text-green-800 dark:text-white tracking-wide font-semibold">Patient's E-mail:</label>
+                            <input type="text" th:field="*{patientsEmail}" id="patientsEmail" aria-label="Search Patient" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium 
+                                            leading-none text-green-800 p-3 border rounded border-green-200" />
+                        </div>
+                        <!-- DATE -->
+                        <div class="flex flex-col w-full">
+                            <label for="date" class="mb-2 text-lg leading-none text-green-800 dark:text-white tracking-wide font-semibold">Date:</label>
+                            <input type="date" th:field="*{date}" id="date" aria-label="Enter Date" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium 
+                                            leading-none text-green-800 p-3 border rounded border-green-200" />
+                        </div>
+
+                        <!-- SLOTS -->
+                        <div class="flex flex-col w-full">
+                            <label for="slot" class="mb-2 text-lg leading-none text-green-800 dark:text-white tracking-wide font-semibold">Slot:</label>
+                            <select id="slot" th:field="*{timeSlot}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium
+                            leading-none text-green-800 p-3 border rounded border-green-200">
+                                <!-- <option hidden selected value="">Choose a slot</option> -->
+                                <option value="9:00 am - 10:30 am">9:00 am - 10:30 am</option>
+                                <option value="10:30 am - 12:00 nn">10:30 am - 12:00 nn</option>
+                                <option value="1:00 pm - 2:30 pm">1:00 pm - 2:30 pm</option>
+                                <option value="2:30 pm - 4:00 pm">2:30 pm - 4:00 pm</option>
+                            </select>
+                        </div>
+
+                        <!-- REASON -->
+                        <div class="flex flex-col w-full">
+                            <label for="message" class="mb-2 text-lg leading-none text-green-800 dark:text-white tracking-wide font-semibold">Remarks:</label>
+                            <textarea id="message" th:field="*{remarks}" rows="4" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium 
+                                leading-none text-green-800 p-3 border rounded border-green-200" placeholder="Please provide a short remark on why you need this appointment..."></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center space-x-2">
+                        <a onclick="history.go(-1)" class="text-gray-500 cursor-pointer bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                            <span class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="w-5 h-5 mx-2">
+                                    <path fill-rule="evenodd"
+                                        d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Back
+                            </span>
+                        </a>
+
+
+
+                        <button type="submit" class="text-white  bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <span class="flex items-center">
+                                Confirm
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="w-5 h-5 mx-1">
+                                    <path fill-rule="evenodd"
+                                        d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </section>
+
+        <div th:replace="footer :: footer"></div>
+
+    </body>
+
+</html>
