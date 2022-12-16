@@ -72,7 +72,7 @@ public class DoctorController {
 	@GetMapping("/history")
 	public String history(ModelMap m, Principal p, @ModelAttribute("user") User user) {
 
-		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDoctorIDOrderById("Checked", user));
+		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndDoctorIDOrderById("Done", user));
 
 		return "doctor/history";
 	}
@@ -85,7 +85,7 @@ public class DoctorController {
 		// appointmentRepo.findByHasArrivedAndPatientID(true, user));
 		m.addAttribute("check", "yes");
 
-		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndPatientID("Checked", user));
+		m.addAttribute("listOfAppointments", appointmentRepo.findByStatusAndPatientID("Done", user));
 
 		return "doctor/history";
 	}
@@ -94,7 +94,6 @@ public class DoctorController {
 	public String appointment(@PathVariable("id") int id, ModelMap m) {
 		Appointment appointment = appointmentRepo.findById(id);
 		m.addAttribute("appointment", appointment);
-		// appointmentRepo.findById(id).ifPresent(o -> m.addAttribute("appointment", o));
 		return "doctor/appointment";
 	}
 
@@ -123,7 +122,7 @@ public class DoctorController {
 		// appointment.setId(id);
 		// }
 		Appointment updateAppt = appointmentRepo.findById(id);
-		updateAppt.setStatus("Checked");
+		updateAppt.setStatus("Done");
 		updateAppt.setDoctorID(user);
 		updateAppt.setDiagnosis(appointment.getDiagnosis());
 
@@ -161,8 +160,10 @@ public class DoctorController {
 		String fileName = info.getPatientID().getFullName().replace(" ", "")
 				+ "_" + info.getId()
 				+ ".pdf";
-		String message = "THis is a system generated email with a copy of your medicalCertificate";
+
+		String message = "This is a system generated copy of your Medical Certificate";
 		String subject = "Medical Certificate";
+
 		emailSenderService.sendMailWithAttachment(email,
 				"C:/Users/rarenilloadmin/Downloads/" + fileName, message, subject);
 		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL d, YYYY");

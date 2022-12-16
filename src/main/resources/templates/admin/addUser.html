@@ -57,16 +57,26 @@
                             <label for="contactNumber" class="mb-2 text-sm leading-none text-gray-800">Phone Number</label>
                             <input id="contactNumber" type="number" aria-label="Enter Contact Number" th:field="*{contactNumber} " class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200 "
                             />
-                            <span class="text-red-500 italic" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber} "></span>
-                            <span class="text-red-500 italic" th:if="${phoneExist}">Phone number already in use</span>
+                            <span class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber} "></span>
+                            <span class="text-red-500 italic md:hidden" th:if="${phoneExist}">Phone number already in use</span>
                         </div>
 
                         <div class="grid sm:mx-1">
-                            <label for="validIdNumber" class="mb-1 text-sm leading-none text-gray-800 ">Valid ID Number</label>
-                            <input id="validIdNumber" type="text" aria-label="Enter Valid ID Number " th:field="*{validIdNumber} " class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border
+                            <label for="validIdNumber" class="mb-1 text-sm leading-none text-gray-800">Valid ID Number</label>
+                            <input id="validIdNumber" type="text" aria-label="Enter Valid ID Number" th:field="*{validIdNumber} " class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border
                                 rounded border-gray-200 " />
-                            <span th:if="${#fields.hasErrors('validIdNumber')} " th:errors="*{validIdNumber}" class="text-red-500 italic "></span>
+                            <p class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('validIdNumber')} " th:errors="*{validIdNumber}"></p>
                         </div>
+
+                        <div class="mx-1 hidden sm:block">
+                            <!-- small view: nakahide, large view: lalabas -->
+                            <p class="text-red-500 italic" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></p>
+                        </div>
+
+                        <div class="mx-1 hidden sm:block">
+                            <p class="text-red-500 italic " th:if="${#fields.hasErrors('validIdNumber')}" th:errors="*{validIdNumber}"></p>
+                        </div>
+
                     </div>
 
                     <!-- Account info -->
@@ -77,80 +87,96 @@
                         </div>
 
                         <div class="mt-8 space-y-4">
-                            <div class="grid gap-4 lg:grid-cols-2 w-full">
+                            <div class="mt-8 grid sm:grid-cols-2 gap-2 md:gap-0">
                                 <div class="grid sm:mx-1">
                                     <label class="mb-2 text-sm leading-none text-gray-800">Email</label>
                                     <input type="email" aria-label="Enter Email Address" th:field="*{email} " class="focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" />
-                                    <span class="text-red-500 italic " th:if="${#fields.hasErrors('email')} " th:errors="*{email} "></span>
-                                    <span class="text-red-500 italic " th:if="${emailExist} ">Email already in use</span>
+                                    <span class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('email')} " th:errors="*{email} "></span>
+                                    <span class="text-red-500 italic md:hidden" th:if="${emailExist} ">Email already in use</span>
                                 </div>
 
 
                                 <div class="grid sm:mx-1">
                                     <label class="mb-1 text-sm leading-none text-gray-800 ">Role</label>
-                                    <select id="role" aria-label="Account Locked" th:field="*{role} " class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded
+                                    <select id="role" aria-label="Account Locked" th:field="*{role} " class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-2 border rounded
                                         border-gray-200">
                                         <option value="ROLE_DOCTOR">DOCTOR</option>
                                         <option value="ROLE_NURSE">NURSE</option>
                                         <option value="ROLE_ADMIN">ADMIN</option>
                                     </select>
                                 </div>
+
+                                <div class="mx-1 hidden sm:block">
+                                    <!-- small view: nakahide, large view: lalabas -->
+                                    <p class="text-red-500 italic" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                                    <p class="text-red-500 italic" th:if="${emailExist}">Email in use.</p>
+                                </div>
                             </div>
 
-                            <div class="grid gap-4 lg:grid-cols-2 w-full">
+                            <div class="grid lg:grid-cols-2 w-full">
                                 <div class="grid sm:mx-1">
-                                    <label for="password" class="mb-2 text-sm leading-none text-gray-800 ">Password</label>
-                                    <input id="password" type="password" aria-label="Enter Full Name" th:field="*{password} " class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border
+                                    <label for="password" class="mb-2 text-sm leading-none text-gray-800">Password</label>
+                                    <input id="password" type="password" aria-label="Enter Full Name" th:field="*{password}" class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border
                                         rounded border-gray-200" />
-                                    <span class="text-red-500 italic " th:if="${#fields.hasErrors( 'password')} " th:errors="*{password} "></span>
-                                    <span class="text-white italic " th:if="${passwordNotMatch} ">_</span>
+                                    <p class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('password')}" th:errors="*{password} "></p>
                                 </div>
-
 
                                 <div class="grid sm:mx-1">
                                     <label for="confirmPassword" class="mb-2 text-sm leading-none text-gray-800 ">Confirm Password</label>
                                     <input id="confirmPassword" type="password" aria-label="Enter Full Name " th:field="*{confirmPassword} " class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3
-                                border rounded border-gray-200 " />
-                                    <span class="text-red-500 italic " th:if="${#fields.hasErrors( 'confirmPassword')} " th:errors="*{confirmPassword} ">Password do not match</span>
-                                    <span class="text-red-500 italic " th:if="${passwordNotMatch} ">Password do not match</span>
+                                        border rounded border-gray-200" />
+                                    <p class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
+                                    <p class="text-red-500 italic md:hidden" th:if="${passwordNotMatch} ">Password do not match</p>
+                                </div>
 
+
+                                <!-- small view: nakahide, large view: lalabas -->
+                                <div>
+                                    <p class="text-red-500 italic" th:if=" ${#fields.hasErrors('password')}" th:errors="*{password} "></p>
+                                </div>
+
+                                <div class="grid">
+                                    <p class="text-red-500 italic " th:if="${#fields.hasErrors( 'confirmPassword')} " th:errors="*{confirmPassword} "></p>
+                                    <p class="text-red-500 italic " th:if="${passwordNotMatch} ">Password do not match</p>
                                 </div>
                             </div>
-
-
-                            <div class="flex items-center justify-center">
-                                <a th:href="@{/admin/listOfUser} " class="mr-1 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border rounded border-gray-400 mt-7 md:mt-14 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 ">
-                                    <svg xmlns="http://www.w3.org/2000/svg " viewBox="0 0 20 20 " fill="currentColor " class="w-5 h-5 mx-2 ">
-                                <path fill-rule="evenodd "
-                                    d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z "
-                                    clip-rule="evenodd " />
-                            </svg>
-
-                                    <span class="text-sm font-medium text-center text-gray-800">Back</span>
-                                </a>
-
-
-
-                                <button type="submit " aria-label="Next step" class="text-green-700 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border-2 rounded border-green-700 mt-7 md:mt-14 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2
-                                focus:ring-gray-700 ">
-							<span
-								class="text-sm font-medium text-center">Submit</span>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20 " fill="currentColor "
-								class="w-5 h-5 mx-1 ">
-								<path fill-rule="evenodd "
-									d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z "
-									clip-rule="evenodd " />
-								<path fill-rule="evenodd "
-									d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z "
-									clip-rule="evenodd " />
-							</svg>
-						</button>
-
-
-                            </div>
                         </div>
-                    </section>
-                </form>
+
+                        <!-- Buttons -->
+                        <div class="flex items-center justify-center ">
+                            <a th:href="@{/admin/listOfUser} " class="mr-1 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border rounded border-gray-400 mt-7 md:mt-14 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 ">
+                                <svg xmlns="http://www.w3.org/2000/svg " viewBox="0 0 20 20 " fill="currentColor " class="w-5 h-5 mx-2 ">
+                                        <path fill-rule="evenodd "
+                                            d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75
+                                            0 011.06.025z "
+                                            clip-rule="evenodd " />
+                                    </svg>
+
+                                <span class="text-sm font-medium text-center text-gray-800 ">Back</span>
+                            </a>
+
+
+
+                            <button type="submit " aria-label="Next step " class="text-green-700 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border-2 rounded border-green-700 mt-7 md:mt-14 hover:bg-gray-100 focus:ring-2
+                                            focus:ring-offset-2 focus:ring-gray-700 ">
+							        <span class="text-sm font-medium text-center ">
+                                        Submit
+                                    </span>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg " viewBox="0 0 20 20 " fill="currentColor "
+                                        class="w-5 h-5 mx-1 ">
+                                        <path fill-rule="evenodd "
+                                            d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z "
+                                            clip-rule="evenodd " />
+                                        <path fill-rule="evenodd "
+                                            d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z "
+                                            clip-rule="evenodd " />
+                                    </svg>
+						        </button>
+                        </div>
+        </div>
+        </section>
+        </form>
         </div>
 
         <div th:replace="footer :: footer "></div>

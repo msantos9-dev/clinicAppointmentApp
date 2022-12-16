@@ -138,7 +138,6 @@ public class NurseController {
         // System.out.println("Phone exist:" + phoneExist);
 
         if (errors.hasErrors()) {
-            System.out.println("Role:" + selectedUser.getRole());
             System.out.println("Password:" + selectedUser.getConfirmPassword());
             System.out.println(selectedUser);
             return "redirect:addUser";

@@ -214,16 +214,13 @@ public class HomeController {
 			selectedUser.setRole("ROLE_USER");
 			selectedUser.setEnabled(true);
 			userService.saveUser(selectedUser);
-			// messageSenderService.sendMessage("Your account has been verified. You may now
-			// sign-in to your account. \n\n Here are your account details:"
-			// + "\nFullname: " + selectedUser.getFullName()
-			// + "\n Address: " + selectedUser.getAddress()
-			// + "\n Phone number:" + selectedUser.getContactNumber()
-			// + "\n Email: " + selectedUser.getEmail()
-			// + "\n Password: " + selectedUser.getPassword()
-			// + "\n\n Reminder: Never share this to anyone as they can get access to your
-			// account. "
-			// );
+			messageSenderService.sendMessage(
+					"Your account has been verified. You may now sign-in to your account. \n\n Here are your account details:"
+							+ "\n Fullname: " + selectedUser.getFullName()
+							+ "\n Address: " + selectedUser.getAddress()
+							+ "\n Phone number:" + selectedUser.getContactNumber()
+							+ "\n Email: " + selectedUser.getEmail()
+							+ "\n\n Reminder: Never share this to anyone as they can get access to your account. ");
 		} else {
 			System.out.println("invalid code");
 			return "register";
@@ -257,7 +254,7 @@ public class HomeController {
 				return "register";
 			}
 			model.addAttribute("loading", "loading");
-			
+
 			userService.createUser(user);
 
 			code.setPatientID(user);
@@ -291,9 +288,8 @@ public class HomeController {
 			String subject = "Account verification";
 
 			emailSenderService.sendMailWithoutAttachment(recipient, message, subject);
-			// messageSenderService.sendMessage(
-			// "An email has been sent to " + recipient + ". Please click the link to verify
-			// your account");
+			messageSenderService.sendMessage(
+					"An email has been sent to " + recipient + ". Please click the link to verify your account");
 
 			return "redirect:/";
 		}

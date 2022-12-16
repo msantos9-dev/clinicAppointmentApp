@@ -21,7 +21,12 @@
 						<p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span>
 							Invalid username or password.
 					</div>
-
+				</div>
+				<div th:if="${param.logout}">
+					<div class="bg-green-100 rounded-lg py-3 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+						<p class="mt-2 text-sm text-green-500 dark:text-green-800">
+							You have been logout successfully.
+					</div>
 				</div>
 				<input type="hidden" name="remember" value="true">
 				<div class="-space-y-px rounded-md shadow-sm">

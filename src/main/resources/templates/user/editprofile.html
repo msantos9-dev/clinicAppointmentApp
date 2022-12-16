@@ -1,161 +1,136 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns: th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="navbar:: html-heading">
+<head th:replace="navbar::html-heading">
 
-<body>
-    <div th:replace="navbar :: navigation-bar"></div>
+    <body>
 
-    <section>
-        <header class="mt-2 bg-white shadow mr-2 ml-2 ">
-            <div class="mx-auto max-w-6xl py-2 px-2 sm:px-6 lg:px-8">
-                <h3 class="text-lg font-bold tracking-tight text-gray-900">
-                    <a href="/user/profile" class="hover:text-blue-500 cursor-pointer">Patient's
-                        Profile
-                    </a>
+        <div th:replace="navbar :: navigation-bar"></div>
 
-                    <!-- <span onclick="history.go(-1)" class="hover:text-blue-500 cursor-pointer">Patient's
-                            Profile
-                        </span> -->
-                    &nbsp; > &nbsp;Edit Profile
-                </h3>
-            </div>
-        </header>
+        <div aria-label="form" class="focus:outline-none mx-auto max-w-2xl max-h-4xl bg-white p-14 mt-10 mb-10">
+            <h1 role="heading" aria-label="profile information" class="focus:outline-none text-3xl font-bold text-gray-800 mt-4">Edit User</h1>
+            <p class=" focus:outline-none text-sm font-light leading-tight text-gray-600 mt-4">Fill in the data for profile. It will take a couple of minutes.
+                <!-- Form -->
 
-        <main class="bg-gray-100 min-h-screen">
-            <div class="mx-auto max-w-6xl py-6 sm:px-6 lg:px-8">
-                <!-- Replace with your content -->
-                <div class="sm:px-0 px-4 py-6 bg-white rounded-md">
+                <form class="mt-8 space-y-6" action="#" th:action="@{/user/saveUpdate}" method="post" th:object="${user}">
+                    <!-- <input type="text" aria-label="id" name="id" th:value="*{id}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" /> -->
+                    <!-- 
+                    <input type="text" aria-label="password" name="password" th:field="*{password}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" />
 
-                    <form class="mt-8 space-y-6 mx-auto w-[80%]" action="createUser" method="POST">
-                        <input type="hidden" name="remember" value="true">
+                    <input type="text" aria-label="confirmPasswor" name="confirmPassword" th:value="*{confirmPassword}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"
+                    /> -->
 
-                        <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                            <label for="image" class="lg:text-lg lg:tracking-wide mr-auto">
-                                Avatar
-                            </label>
-
-
-                            <div class="relative">
-                                <img th:src="@{/images/profilepicture.png}" class="w-40 h-40 rounded-full my-auto"
-                                    alt="User's profile image">
-                                <label for="image"
-                                    class="absolute bottom-1 -right-2 bg-gray-200 rounded-full p-2 cursor-pointer hover:bg-gray-700 hover:text-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                                    </svg>
-                                </label>
-                            </div>
-
-                            <input type="file" id="image" class="hidden" />
+                    <!-- <input type="text" aria-label="time" name="registrationTime" th:value="*{registrationTime}" hidden class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" />-->
+                    <!-- Name address -->
+                    <div class="mt-6 md:grid grid-cols-2">
+                        <div class="grid sm:mx-1">
+                            <label for="fullName" class="mb-2 text-sm leading-none text-gray-800">Full Name</label>
+                            <input id="fullName" type="text" aria-label="Enter Full Name" name="fullName" th:value="*{fullName}" readonly="true" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"
+                            />
                         </div>
 
-                        <div class="space-y-3 lg:-space-y-px">
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="fullName" class="lg:text-lg lg:tracking-wide mr-auto">Full Name <sup
-                                        class="font-bold text-red-500 text-md m-auto">*</sup>
-                                </label>
-                                <input id="fullName" name="fullName" type="text" required class="
-                                                col-span-3 form-control relative block w-full appearance-none
-                                                rounded-none rounded-t-md
-                                                 border border-gray-300 p-3
-                                                text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Full Name">
-                            </div>
+                        <div class="grid sm:mx-1 ">
+                            <label class="mb-1 text-sm leading-none text-gray-800">Address</label>
+                            <input type="text" aria-label="Enter Address" defaultvalue="*{address}" name="address" th:value="*{address}" readonly="true" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"
+                            />
+                        </div>
+                    </div>
 
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="address" class="lg:text-lg lg:tracking-wide mr-auto">Address <sup
-                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                <input id="address" name="address" type="text" required class="
-                                                col-span-3 form-control relative block w-full appearance-none
-                                                 border border-gray-300 p-3
-                                                text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Address">
-                            </div>
-
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="contactNumber" class="lg:text-lg lg:tracking-wide mr-auto">Contact No. <sup
-                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                <input id="contactNumber" name="contactNumber" type="text" required class="
-                                                col-span-3 form-control relative block w-full appearance-none
-                                                 border border-gray-300 p-3
-                                                text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                                 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Contact Number">
-                            </div>
-
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="icNumber" class="lg:text-lg lg:tracking-wide mr-auto">IC Number <sup
-                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                <input id="icNumber" name="icNumber" type="text" required class="
-                                            col-span-3 form-control relative block w-full appearance-none
-                                             border border-gray-300 p-3
-                                            text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                             focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="IC Number">
-                            </div>
-
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="email-address" class="lg:text-lg lg:tracking-wide mr-auto">Email address
-                                    <sup class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                <input id="email-address" name="email" type="email" autocomplete="email" required class="
-                                            col-span-3 form-control relative block w-full appearance-none
-                                             border border-gray-300 p-3
-                                            text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                             focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Email address">
-                            </div>
-
-                            <div class="grid lg:grid-cols-4 place-items-center gap-1 lg:gap-5">
-                                <label for="password" class="lg:text-lg lg:tracking-wide mr-auto">Password <sup
-                                        class="font-bold text-red-500 text-md m-auto">*</sup></label>
-                                <input id="password" name="password" type="password" autocomplete="current-password"
-                                    required class="
-                                            col-span-3 form-control relative block w-full appearance-none
-                                            rounded-none rounded-b-md
-                                             border border-gray-300 p-3
-                                            text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                                             focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Password">
-                            </div>
+                    <!-- phone number saka valid id -->
+                    <div class="mt-6 md:grid grid-cols-2">
+                        <div class="grid sm:mx-1">
+                            <label class="mb-2 text-sm leading-none text-gray-800">Phone Number</label>
+                            <input type="number" aria-label="Enter Contact Number" name="contactNumber" value="*{contactNumber}" th:value="*{contactNumber}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"
+                            />
+                            <span class="text-red-500 italic" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber} "></span>
 
                         </div>
 
-                        <div>
-                            <!-- <button type="submit" change this later -->
-                            <button
-                                class="group flex m-auto rounded-md justify-center  border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                Submit
-                                <!--
-                                    &nbsp;
-    
-                                     <span class="animate-pulse">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                            class="w-6 h-5">
-                                            <path fill-rule="evenodd"
-                                                d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </span> -->
-                            </button>
+                        <div class="grid sm:mx-1 ">
+                            <label class="mb-1 text-sm leading-none text-gray-800">Valid ID Number</label>
+                            <input type="text" aria-label="Enter Valid ID Number" name="validIdNumber" value="{validIdNumber}" th:value="*{validIdNumber}" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"
+                            />
                         </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /End replace -->
-            </div>
-        </main>
-    </section>
+                    </div>
+
+                    <section>
+                        <div class="mt-6 grid">
+                            <div class="grid sm:mx-1">
+                                <label class="mb-2 text-sm leading-none text-gray-800">Email</label>
+                                <input type="email" aria-label="Enter Email Address" name="email" th:value="*{email}" readonly="true" class="focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"
+                                />
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <!-- <div class="hidden lg:grid-cols-2 w-full">
+                    <div class="grid sm:mx-1">
+                        <label for="password" class="mb-2 text-sm leading-none text-gray-800">Password</label>
+                        <input id="password" type="password" aria-label="Enter Full Name" th:field="*{password}" class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3 border
+                                        rounded border-gray-200" />
+                        <p class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('password')}"
+                            th:errors="*{password} "></p>
+                    </div>
+
+                    <div class="grid sm:mx-1">
+                        <label for="confirmPassword" class="mb-2 text-sm leading-none text-gray-800 ">Confirm
+                            Password</label>
+                        <input id="confirmPassword" type="password" aria-label="Enter Full Name "
+                            th:field="*{confirmPassword} " class="w-full h-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-300 text-sm font-medium leading-none text-gray-800 p-3
+                                        border rounded border-gray-200" />
+                        <p class="text-red-500 italic md:hidden" th:if="${#fields.hasErrors('confirmPassword')}"
+                            th:errors="*{confirmPassword}"></p>
+                        <p class="text-red-500 italic md:hidden" th:if="${passwordNotMatch} ">Password do not match</p>
+                    </div>
+ -->
+
+                        <!-- small view: nakahide, large view: lalabas -->
+                        <!-- <div>
+                        <p class="text-red-500 italic" th:if=" ${#fields.hasErrors('password')}"
+                            th:errors="*{password} "></p>
+                    </div>
+
+                    <div class="grid">
+                        <p class="text-red-500 italic " th:if="${#fields.hasErrors( 'confirmPassword')} "
+                            th:errors="*{confirmPassword} "></p>
+                        <p class="text-red-500 italic " th:if="${passwordNotMatch} ">Password do not match</p>
+                    </div> 
+                </div> -->
+
+                        <div class="flex items-center justify-center">
+                            <a onclick="history.go(-1)" class="mr-1 flex items-center justify-center py-2 px-4 focus:outline-none bg-white border rounded border-gray-400 mt-7 md:mt-14 hover:bg-gray-100  focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mx-2">
+                            <path fill-rule="evenodd"
+                                d="M7.793 2.232a.75.75 0 01-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 010 10.75H10.75a.75.75 0 010-1.5h2.875a3.875 3.875 0 000-7.75H3.622l4.146 3.957a.75.75 0 01-1.036 1.085l-5.5-5.25a.75.75 0 010-1.085l5.5-5.25a.75.75 0 011.06.025z"
+                                clip-rule="evenodd" />
+                        </svg>
+                                <span class="text-sm font-medium text-center text-gray-800">Back</span>
+                            </a>
+
+                            <button type="submit" aria-label="Next step" class="text-green-700 flex items-center justify-center py-2 px-4 focus:outline-none bg-white                                                                                                                                                                                                                                                                                                                                                                            border-2 rounded border-green-700 mt-7 md:mt-14 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                        <span class="text-sm font-medium text-center">Submit</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="w-5 h-5 mx-1">
+                            <path fill-rule="evenodd"
+                                d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
+                                clip-rule="evenodd" />
+                            <path fill-rule="evenodd"
+                                d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                        </div>
+        </div>
+
+
+        </section>
 
 
 
-    <div th:replace="footer :: footer"></div>
-</body>
+        </form>
+        </div>
+
+        <div th:replace="footer :: footer"></div>
+
+    </body>
 
 </html>
