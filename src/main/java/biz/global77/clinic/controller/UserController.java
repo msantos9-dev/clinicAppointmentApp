@@ -161,24 +161,28 @@ public class UserController {
 
 		List<Appointment> appointments = appointmentRepo.findByPatientID(user);
 
-		if (keyword == null) {
-			appointments = appointments
-					.stream()
-					.filter(appointment -> (appointment.getStatus().equals("Pending")) ||
-							(appointment.getStatus().equals("Queued")))
-					.collect(Collectors.toList());
-		} else {
-			appointments = appointments
-					.stream()
-					.filter(appointment -> (appointment.getStatus().equals(keyword)))
-					.collect(Collectors.toList());
-		}
-
-		Collections.sort(appointments, new Comparator<Appointment>() {
-			public int compare(Appointment o1, Appointment o2) {
-				return o1.getDate().compareTo(o2.getDate());
+		try {
+			if (keyword != null) {
+				appointments = appointments
+						.stream()
+						.filter(appointment -> (appointment.getStatus().equals(keyword)))
+						.collect(Collectors.toList());
+			} else {
+				appointments = appointments
+						.stream()
+						.filter(appointment -> (appointment.getStatus().equals("Pending")) ||
+								(appointment.getStatus().equals("Queued")))
+						.collect(Collectors.toList());
 			}
-		});
+
+			Collections.sort(appointments, new Comparator<Appointment>() {
+				public int compare(Appointment o1, Appointment o2) {
+					return o1.getDate().compareTo(o2.getDate());
+				}
+			});
+		} catch (NullPointerException e) {
+			System.out.println(e);
+		}
 
 		model.addAttribute("appointments", appointments);
 		return "user/appointment";
